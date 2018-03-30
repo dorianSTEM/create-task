@@ -5,7 +5,8 @@ var userModel = require("./models/userModel");
 
 router.get('/', function(req, res, next){
     console.log("entered main route")
-    req.sendFile(__dirname + "/client/www/index.html");
+    console.log(__dirname + "/client/www/index.html");
+    res.sendFile(__dirname + "/client/www/index.html");
 });
 
 router.post('/login', function(req, res, next) {
