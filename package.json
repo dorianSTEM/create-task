@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "ls -l; pwd; chmod 777 run.sh; ls -l; bash run.sh;"
+    "postinstall": "ls -l; pwd; chmod 777 run.sh; ls -l; cat run.sh; bash run.sh;"
   },
    "engines": {
     "node": "6.x.x"
