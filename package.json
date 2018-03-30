@@ -6,6 +6,9 @@
     "start": "node ./bin/www",
     "postinstall": "chmod 777 run.sh; ./run.sh;"
   },
+   "engines": {
+    "node": "6.x.x"
+  },
   "dependencies": {
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
