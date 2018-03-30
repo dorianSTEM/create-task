@@ -13,4 +13,8 @@ router.post('/login', function(req, res, next) {
     });
 });
 
+router.get('/', function(req, res, next){
+    req.sendFile("./client/www/index.html");
+});
+
 module.exports = router;
