@@ -3,6 +3,8 @@ var router = express.Router();
 
 var userModel = require("./models/userModel");
 
+router.use(express.static(__dirname + "/client/www"))
+
 router.get('/', function(req, res, next){
     console.log("entered main route")
     console.log(__dirname + "/client/www/index.html");
