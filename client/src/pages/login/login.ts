@@ -49,12 +49,37 @@ export class LoginPage {
   }
   
   register() {
-    let toast = this.toastCtrl.create({
-        message: "Successfully Registered!",
-        duration: 2000
-      });
+    let data = {
+      usr: this.creds.username, // the data that will be sent to the server
+      pwd: this.creds.password // field names are shortened to reduce traffic
+    }
     
-      toast.present();
+    let loading = this.loadingCtrl.create({
+      content: 'Creating Account...'
+    });
+    
+    loading.present();
+    
+    this.http.post('/signup', data).subscribe(response => {
+      var resBody = JSON.parse(response["_body"]);
+      loading.dismiss();
+      
+      if (!resBody.err) {
+        let toast = this.toastCtrl.create({
+          message: "Successfully Registered!",
+          duration: 2000
+        });
+
+        toast.present();
+      } else {
+        let toast = this.toastCtrl.create({
+          message: "Error, please try again.",
+          duration: 2000
+        });
+
+        toast.present();
+      }
+    });
   }
 }
 
