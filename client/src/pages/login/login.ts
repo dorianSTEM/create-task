@@ -5,7 +5,7 @@ import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 
-import { HomePage } from '../pages/home/home';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-login',
