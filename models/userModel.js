@@ -9,6 +9,7 @@ exports.findUser = function(username, password){ // Find User by username and pa
     return new Promise(function(resolve){
         db.findOne({username:username, password:password}).then(function(doc) {
           if (doc) {
+              console.log(doc);
               resolve(true);
           } else {
               resolve(false);
