@@ -1,16 +1,16 @@
 var modelHelper = require("./modelHelper");
 
 var db;
-modelHelper.mongo.onReady = function(){
-    db = modelHelper.mongo.users
-}
+modelHelper.mongo.onReady(function(mongo){
+  db = mongo.users;
+});
 
 exports.findUser = function(username, password){ // Find User by username and password (for authentication)
     return new Promise(function(resolve){
         db.findOne({username:username, password:password}).then(function(doc) {
           if (doc) {
               console.log(doc);
-              resolve(true);
+              resolve(true, doc);
           } else {
               resolve(false);
           }
@@ -30,9 +30,9 @@ exports.findUserByUsername = function(username){ // Find User by username (to ma
   });
 }
 
-exports.createUser = function(username, password){
+exports.createUser = function(username, password, company){
   return new Promise(function(resolve){
-    db.insertOne({username:username, password:password}, function(err, doc) {
+    db.insertOne({username:username, password:password, verified:false, companyID:company}, function(err, doc) {
         if (!err) {
             resolve(true);
         } else {
@@ -41,3 +41,7 @@ exports.createUser = function(username, password){
     });
   });
 };
+
+exports.getCompanyEvents = function(companyId){
+  
+}

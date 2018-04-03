@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 var userModel = require("./models/userModel");
+var compModel = require("./models/companyModel");
 
 router.use(express.static(__dirname + "/client/www"));
 
-router.get('/', function(req, res, next){
+router.get('/', function(req, res, next){ // send Ionic Web App on / route
     console.log("entered main route");
     console.log(__dirname + "/client/www/index.html");
     res.sendFile(__dirname + "/client/www/index.html");
@@ -34,7 +35,7 @@ router.post('/signup', function(req, res, next) {
         }
       });
     }
-});
+  });
 });
 
 module.exports = router;

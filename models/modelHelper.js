@@ -1,7 +1,16 @@
 var MongoClient = require('mongodb').MongoClient;
 
+var readyCallbacks = []
+
 var mongo = {
-    onReady: function() {}
+    ready: false,
+    onReady: function(func) {
+      if (!mongo.ready){
+        readyCallbacks.push(func); // add functions to callback when ready 
+      } else { // if we are already ready, just call the function
+        func(mongo);
+      }
+    }
 }
 
 var connect = function(db){ // Parameters: col: the collection name, cb: a callback, db: overwrite default DB
@@ -10,10 +19,17 @@ var connect = function(db){ // Parameters: col: the collection name, cb: a callb
     var uri = "mongodb+srv://dorian:D0rian800@cluster0-0cfmh.mongodb.net/admin";
 
     MongoClient.connect(uri, function(err, client) {
-        const collection = client.db(db).collection("users");
-        mongo.users = collection;
+        const usersCollection = client.db(db).collection("users");
+        const companyCollection = client.db(db).collection("companies");
+      
+        mongo.users = usersCollection;
+        mongo.companies = companyCollection;
         mongo.client = client;
-        mongo.onReady();
+        
+        mongo.ready = true;
+        for (let cb in readyCallbacks){
+            readyCallbacks[cb](mongo);
+        }
     });
 }
 
