@@ -3,10 +3,10 @@ var router = express.Router();
 
 var userModel = require("./models/userModel");
 
-router.use(express.static(__dirname + "/client/www"))
+router.use(express.static(__dirname + "/client/www"));
 
 router.get('/', function(req, res, next){
-    console.log("entered main route")
+    console.log("entered main route");
     console.log(__dirname + "/client/www/index.html");
     res.sendFile(__dirname + "/client/www/index.html");
 });
@@ -19,6 +19,21 @@ router.post('/login', function(req, res, next) {
             res.json({loggedIn:false});
         }
     });
+});
+
+router.post('/signup', function(req, res, next) {
+  userModel.findUserByUsername(req.body.usr).then(function(found){
+    if (found) {
+      res.json({err:1, type:"Username Already In Use!"});
+    } else {
+      userModel.createUser(req.body.usr, req.body.pwd).then(function(success){
+        if (success){
+          res.json({err:0});
+        } else {
+          res.json({err:1, type:"Unknown Error, Try Again Later..."})
+        }
+      });
+    }
 });
 
 module.exports = router;
