@@ -5,6 +5,8 @@ import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 
+import { HomePage } from '../pages/home/home';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -36,6 +38,7 @@ export class LoginPage {
       var toastMsg = "";
       if (resBody.loggedIn){
         toastMsg = "Successfully Logged In!"
+        this.navCtrl.setRoot(HomePage);
       } else {
         toastMsg = "Invalid Credentials"
       }
@@ -69,8 +72,10 @@ export class LoginPage {
           message: "Successfully Registered!",
           duration: 2000
         });
-
+        
         toast.present();
+        
+        this.navCtrl.setRoot(HomePage);
       } else {
         let toast = this.toastCtrl.create({
           message: resBody.type,
