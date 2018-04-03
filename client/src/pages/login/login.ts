@@ -73,7 +73,7 @@ export class LoginPage {
         toast.present();
       } else {
         let toast = this.toastCtrl.create({
-          message: "Error, please try again.",
+          message: resBody.type,
           duration: 2000
         });
 
