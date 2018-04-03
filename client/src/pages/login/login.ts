@@ -10,15 +10,13 @@ import { LoadingController } from 'ionic-angular';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-
   creds:any = {};
   constructor(
     public navCtrl: NavController,
     private http: Http,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController
-  ) {
-  }
+  ) { }
 
   login() { // Login Authentication function with server
     let data = {
@@ -48,6 +46,15 @@ export class LoginPage {
       loading.dismiss();
       toast.present();
     });
+  }
+  
+  register() {
+    let toast = this.toastCtrl.create({
+        message: "Successfully Registered!",
+        duration: 2000
+      });
+    
+      toast.present();
   }
 }
 
