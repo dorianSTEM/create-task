@@ -32,8 +32,8 @@ export class LoginPage {
 
     loading.present();
 
-    this.http.post('http://localhost:3000/login', data).subscribe(response => {
-      var resBody = JSON.parse(response._body);
+    this.http.post('/login', data).subscribe(response => {
+        var resBody = JSON.parse(response["_body"]);
 
       var toastMsg = "";
       if (resBody.loggedIn){
