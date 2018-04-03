@@ -23,7 +23,8 @@ export class LoginPage {
   login() { // Login Authentication function with server
     let data = {
       usr: this.creds.username, // the data that will be sent to the server
-      pwd: this.creds.password // field names are shortened to reduce traffic
+      pwd: this.creds.password, // field names are shortened to reduce traffic
+      cmp: this.creds.company
     }
 
     let loading = this.loadingCtrl.create({
@@ -54,7 +55,8 @@ export class LoginPage {
   register() {
     let data = {
       usr: this.creds.username, // the data that will be sent to the server
-      pwd: this.creds.password // field names are shortened to reduce traffic
+      pwd: this.creds.password, // field names are shortened to reduce traffic
+      cmp: this.creds.company
     }
     
     let loading = this.loadingCtrl.create({
