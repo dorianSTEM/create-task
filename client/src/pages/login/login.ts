@@ -17,7 +17,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     private http: Http,
-    private storage: Storage
+    private storage: Storage,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController
   ) { }
