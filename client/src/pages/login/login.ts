@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../home/home';
 
@@ -16,6 +17,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     private http: Http,
+    private storage: Storage
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController
   ) { }
@@ -30,15 +32,16 @@ export class LoginPage {
     let loading = this.loadingCtrl.create({
       content: 'Authenticating...'
     });
-
     loading.present();
 
     this.http.post('/login', data).subscribe(response => {
-        var resBody = JSON.parse(response["_body"]);
+      var resBody = JSON.parse(response["_body"]);
 
       var toastMsg = "";
       if (resBody.loggedIn){
-        toastMsg = "Successfully Logged In!"
+        toastMsg = "Successfully Logged In!";
+        storage.set("session-id", resBody.session);
+        
         this.navCtrl.setRoot(HomePage);
       } else {
         toastMsg = "Invalid Credentials"
@@ -76,6 +79,8 @@ export class LoginPage {
         });
         
         toast.present();
+        
+        storage.set("session-id", resBody.session);
         
         this.navCtrl.setRoot(HomePage);
       } else {
