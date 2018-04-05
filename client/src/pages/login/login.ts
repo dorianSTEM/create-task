@@ -40,7 +40,7 @@ export class LoginPage {
       var toastMsg = "";
       if (resBody.loggedIn){
         toastMsg = "Successfully Logged In!";
-        storage.set("session-id", resBody.session);
+        this.storage.set("session-id", resBody.session);
         
         this.navCtrl.setRoot(HomePage);
       } else {
@@ -80,7 +80,7 @@ export class LoginPage {
         
         toast.present();
         
-        storage.set("session-id", resBody.session);
+        this.storage.set("session-id", resBody.session);
         
         this.navCtrl.setRoot(HomePage);
       } else {
