@@ -23,7 +23,7 @@ export class MyApp {
         
         console.log('We have session ', val);
         if (val){
-          this.http.post('/authenticate', data).subscribe(response => {
+          http.post('/authenticate', data).subscribe(response => {
             var resBody = JSON.parse(response["_body"]);
             if (!resBody.err){
               this.rootPage = HomePage; 
