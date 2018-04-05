@@ -42,7 +42,7 @@ exports.createUser = function(username, password, company, sessionID){
   });
 };
 
-exports.getUserBySession(function(sessionID){
+exports.getUserBySession = function(sessionID){
   return new Promise(function(resolve){
     db.findOne({sessionID:sessionID}).then(function(doc) {
       if (doc){
@@ -52,7 +52,7 @@ exports.getUserBySession(function(sessionID){
       }
     });
   });
-});
+}
 
 exports.approveUser = function(username){
   return new Promise(function(resolve){
