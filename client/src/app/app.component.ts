@@ -30,7 +30,7 @@ export class MyApp {
             }
           });
         }
-      }).then(() = > {
+      }).then((val) => {
           statusBar.styleDefault();
           splashScreen.hide();
       });
