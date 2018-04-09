@@ -1,5 +1,11 @@
+import { Http } from '@angular/http';
+
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'page-company-create',
@@ -8,7 +14,12 @@ import { NavController } from 'ionic-angular';
 export class CompanyCreatePage {
   creds:any = {};
   
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    private http: Http,
+    private storage: Storage,
+    public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController) {
     
   }
   
