@@ -56,11 +56,17 @@ router.post('/signup', function(req, res, next) {
 });
 
 router.post('/createCompany', function(req, res, next){
-  compModel.createCompany(req.body.name).then(function(success){
-    if (sucess){
-      req.json({err:0});
+  compModel.findCompanyByName(req.body.name).then(function(found){
+    if (!found){
+      compModel.createCompany(req.body.name).then(function(success){
+        if (sucess){
+          req.json({err:0});
+        } else {
+          req.json({err:1, type:"Unknown Error, Try Again Later..."});
+        }
+      });
     } else {
-      req.json({err:1});
+      req.json({err:1, type:"Company Name Already Exists..."});
     }
   });
 });
