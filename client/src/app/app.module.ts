@@ -9,6 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { CompanyCreatePage } from '../pages/company-create/company-create';
 
 //import { Toast } from '@ionic-native/toast';
 
@@ -16,7 +17,8 @@ import { LoginPage } from '../pages/login/login';
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    CompanyCreatePage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { LoginPage } from '../pages/login/login';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    CompanyCreatePage
   ],
   providers: [
     StatusBar,

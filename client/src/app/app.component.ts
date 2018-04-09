@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { CompanyCreatePage } from '../pages/company-create/company-create';
 
 @Component({
   templateUrl: 'app.html'
