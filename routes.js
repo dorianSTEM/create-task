@@ -25,6 +25,7 @@ router.post('/login', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
+  console.log("ENTER SIGNUP");
   userModel.findUserByUsername(req.body.usr).then(function(found){
     if (found) { // check if we found the username
       res.json({err:1, type:"Username Already In Use!"});
@@ -39,6 +40,7 @@ router.post('/signup', function(req, res, next) {
                                                 // HH,MM,SS,MS
           
           // Session expiration has been removed (maybe if I have more time...)
+          console.log("COMPANY DOC: ", doc);
           
           userModel.createUser(req.body.usr, req.body.pwd, doc._id, sessionID).then(function(success){ // create user using username, password, and the company _id
             if (success){ // success, the user was created!!
@@ -60,13 +62,13 @@ router.post('/createCompany', function(req, res, next){
     if (!found){
       compModel.createCompany(req.body.name).then(function(success){
         if (success){
-          req.json({err:0});
+          res.json({err:0});
         } else {
-          req.json({err:1, type:"Unknown Error, Try Again Later..."});
+          res.json({err:1, type:"Unknown Error, Try Again Later..."});
         }
       });
     } else {
-      req.json({err:1, type:"Company Name Already Exists..."});
+      res.json({err:1, type:"Company Name Already Exists..."});
     }
   });
 });
