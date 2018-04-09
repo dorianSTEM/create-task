@@ -10,9 +10,9 @@ exports.findCompanyByName = function(name){
         db.findOne({name:name}).then(function(doc) {
           if (doc) {
               console.log(doc);
-              resolve(true, doc);
+              resolve({found:true, doc:doc}); // Have to send Object for 2 Args
           } else {
-              resolve(false);
+              resolve({found:false});
           }
         });
     });
