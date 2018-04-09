@@ -72,9 +72,9 @@ $colors: (
 
 @import "ionic.theme.default";
 
-$toolbar-ios-background:($primary);
-$toolbar-md-background:($primary);
-$toolbar-wp-background:($primary);
+$toolbar-ios-background:($colors.primary);
+$toolbar-md-background:($colors.primary);
+$toolbar-wp-background:($colors.primary);
 
 
 // Ionicons
