@@ -59,7 +59,7 @@ router.post('/createCompany', function(req, res, next){
   compModel.findCompanyByName(req.body.name).then(function(found){
     if (!found){
       compModel.createCompany(req.body.name).then(function(success){
-        if (sucess){
+        if (success){
           req.json({err:0});
         } else {
           req.json({err:1, type:"Unknown Error, Try Again Later..."});
