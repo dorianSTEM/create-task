@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Create New Company
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #registerForm="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+
+          <ion-item>
+            <ion-input type="text" placeholder="Company Name" name="comp-name" [(ngModel)]="creds.name" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-textarea placeholder="Enter a company description..." name="comp-description" [(ngModel)]="creds.description" required></ion-textarea>
+          </ion-item>
+          
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="signup-col">
+        <button ion-button class="submit-btn" full type="submit" (click)="login()" [disabled]="!registerForm.form.valid">Create Company</button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-content>

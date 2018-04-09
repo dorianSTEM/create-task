@@ -7,6 +7,7 @@ import { LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../home/home';
+import { CompanyCreatePage } from '../company-create/company-create';
 
 @Component({
   selector: 'page-login',
@@ -92,6 +93,10 @@ export class LoginPage {
         toast.present();
       }
     });
+  }
+  
+  createComp() {
+    this.navCtrl.push(CompanyCreatePage);
   }
 }
 

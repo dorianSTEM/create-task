@@ -22,6 +22,8 @@
           
           <ion-item>
             <ion-input type="text" placeholder="Company Name" name="company" [(ngModel)]="creds.company" required></ion-input>
+            <p>No Company yet? Please click Create New Company below.</p>
+            <p>You MUST create a company before creating an account in the company.</p>
           </ion-item>
 
         </ion-list>
@@ -31,7 +33,9 @@
     <ion-row>
       <ion-col class="signup-col">
         <button ion-button class="submit-btn" full type="submit" (click)="login()" [disabled]="!registerForm.form.valid">Login</button>
-        <button ion-button class="register-btn" block clear (click)="register()">Create New Account</button>
+        
+        <button ion-button class="register-btn" block clear (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button>
+        <button ion-button class="register-btn" block clear (click)="createComp()">Create New Company</button>
       </ion-col>
     </ion-row>
 
