@@ -33,16 +33,16 @@ router.post('/signup', function(req, res, next) {
       res.json({err:1, type:"Password is shorter than 8 characters!"});
     } else { // otherwise the username is good/unique and the password is long enough
       
-      compModel.findCompanyByName(req.body.cmp).then(function(found, doc){ // try to find the company the user said he was part of
-        if (found){ // if the company was found, we're good
+      compModel.findCompanyByName(req.body.cmp).then(function(obj){ // try to find the company the user said he was part of
+        if (obj.found){ // if the company was found, we're good
           var sessionID = helper.makeid(16);
           //var sessionExpiration = new Date.now() + 24*60*60*1000; // set the session expiration to 1 day from now (24 hours)
                                                 // HH,MM,SS,MS
           
           // Session expiration has been removed (maybe if I have more time...)
-          console.log("COMPANY DOC: ", doc);
+          console.log("COMPANY DOC: ", obj.doc);
           
-          userModel.createUser(req.body.usr, req.body.pwd, doc._id, sessionID).then(function(success){ // create user using username, password, and the company _id
+          userModel.createUser(req.body.usr, req.body.pwd, obj.doc._id, sessionID).then(function(success){ // create user using username, password, and the company _id
             if (success){ // success, the user was created!!
               res.json({err:0, session:sessionID});
             } else {
