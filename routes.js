@@ -76,9 +76,9 @@ router.post('/createCompany', function(req, res, next){
 router.post('/authenticate', function(req, res, next){ // authenticate with user ID
   userModel.getUserBySession(req.body.session).then(function(found, doc){
     if (found){ // if we found the user by his session, send the OK
-      req.json({err:0});
+      res.json({err:0});
     } else { // otherwise, send the NOK
-      req.json({err:1})
+      res.json({err:1})
     }
   });
 });
