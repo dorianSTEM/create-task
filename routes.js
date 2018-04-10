@@ -15,9 +15,9 @@ router.get('/', function(req, res, next){ // send Ionic Web App on / route
 });
 
 router.post('/login', function(req, res, next) {
-    userModel.findUser(req.body.usr, req.body.pwd).then(function(found, doc){ // PROMISES!!!!!
-        if (found){ //check if the user was found
-            res.json({loggedIn:true, session:doc.sessionID});
+    userModel.findUser(req.body.usr, req.body.pwd).then(function(obj){ // PROMISES!!!!!
+        if (obj.found){ //check if the user was found
+            res.json({loggedIn:true, session:obj.doc.sessionID});
         } else {
             res.json({loggedIn:false});
         }
@@ -60,7 +60,7 @@ router.post('/signup', function(req, res, next) {
 router.post('/createCompany', function(req, res, next){
   compModel.findCompanyByName(req.body.name).then(function(obj){
     if (!obj.found){
-      compModel.createCompany(req.body.name).then(function(success){
+      compModel.createCompany(req.body.name, req.body.pass, req.body.descr).then(function(success){
         if (success){
           res.json({err:0});
         } else {
