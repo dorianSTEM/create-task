@@ -7,10 +7,15 @@
   </ion-header>
   
   <ion-content padding>
+    <h2>Company Notifier</h2>
+    <h4>Secure Company Login</h4>
     <form #registerForm="ngForm">
         <ion-row>
           <ion-col>
             <ion-list inset>
+              <ion-item>
+                <ion-input type="text" placeholder="Company Name" name="company" [(ngModel)]="creds.company" required></ion-input>
+              </ion-item>
               <ion-item>
                 <ion-input type="password" placeholder="Company Passphrase" name="passphrase" [(ngModel)]="creds.passphrase" required></ion-input>
               </ion-item>

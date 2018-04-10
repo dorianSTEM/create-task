@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'page-pass',
@@ -7,7 +7,11 @@ import { NavController } from 'ionic-angular';
 })
 export class PassPage {
   creds:any = {};
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
+    
+  }
 
+  authenticate(){
+    this.viewCtrl.dismiss(this.creds);
   }
 }
