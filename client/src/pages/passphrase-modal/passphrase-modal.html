@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar>      
+      <ion-title>
+        Enter Company Passphrase
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <form #registerForm="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+              <ion-item>
+                <ion-input type="password" placeholder="Company Passphrase" name="passphrase" [(ngModel)]="creds.passphrase" required></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+    
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="register-btn" block clear (click)="createComp()">Authenticate</button>
+          </ion-col>
+        </ion-row>
+    
+      </form>
+  </ion-content>
+  
