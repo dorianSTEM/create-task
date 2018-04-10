@@ -4,11 +4,12 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../home/home';
 import { CompanyCreatePage } from '../company-create/company-create';
-
+import { PassPage } from '../passphrase-modal/passphrase-modal';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -20,7 +21,8 @@ export class LoginPage {
     private http: Http,
     private storage: Storage,
     public toastCtrl: ToastController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController
   ) { }
 
   login() { // Login Authentication function with server
@@ -29,6 +31,9 @@ export class LoginPage {
       pwd: this.creds.password, // field names are shortened to reduce traffic
       cmp: this.creds.company
     }
+
+    let passPhraseModal = this.modalCtrl.create(PassPage);
+    passPhraseModal.present();
 
     let loading = this.loadingCtrl.create({
       content: 'Authenticating...'
