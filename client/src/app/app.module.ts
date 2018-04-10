@@ -10,6 +10,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { CompanyCreatePage } from '../pages/company-create/company-create';
+import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
 
 //import { Toast } from '@ionic-native/toast';
 
@@ -18,7 +19,8 @@ import { CompanyCreatePage } from '../pages/company-create/company-create';
     MyApp,
     HomePage,
     LoginPage,
-    CompanyCreatePage
+    CompanyCreatePage,
+    PassPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { CompanyCreatePage } from '../pages/company-create/company-create';
     MyApp,
     HomePage,
     LoginPage,
-    CompanyCreatePage
+    CompanyCreatePage,
+    PassPage
   ],
   providers: [
     StatusBar,
