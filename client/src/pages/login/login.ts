@@ -29,11 +29,9 @@ export class LoginPage {
     let data = {
       usr: this.creds.username, // the data that will be sent to the server
       pwd: this.creds.password, // field names are shortened to reduce traffic
-      cmp: this.creds.company
+      cmp: "",
+      pass: ""
     }
-
-    let passPhraseModal = this.modalCtrl.create(PassPage);
-    passPhraseModal.present();
 
     let loading = this.loadingCtrl.create({
       content: 'Authenticating...'
@@ -65,39 +63,55 @@ export class LoginPage {
     let data = {
       usr: this.creds.username, // the data that will be sent to the server
       pwd: this.creds.password, // field names are shortened to reduce traffic
-      cmp: this.creds.company
+      // cmp: this.creds.company
+      cmp: "",
+      pass: ""
     }
-    
-    let loading = this.loadingCtrl.create({
-      content: 'Creating Account...'
-    });
-    
-    loading.present();
-    
-    this.http.post('/signup', data).subscribe(response => {
-      var resBody = JSON.parse(response["_body"]);
-      loading.dismiss();
-      
-      if (!resBody.err) {
-        let toast = this.toastCtrl.create({
-          message: "Successfully Registered!",
-          duration: 2000
-        });
-        
-        toast.present();
-        
-        this.storage.set("session-id", resBody.session);
-        
-        this.navCtrl.setRoot(HomePage);
-      } else {
-        let toast = this.toastCtrl.create({
-          message: resBody.type,
-          duration: 2000
-        });
 
-        toast.present();
+    let companyModal = this.modalCtrl.create(PassPage);
+
+    companyModal.onDidDismiss(obj => {
+      // this.userName = data.userName;
+      data.cmp = obj.company,
+      data.pass = obj.passphrase
+
+      if (!data.cmp || !data.pass){ // If no company name or password was provided
+        return 0; //exit out of function
       }
+
+      let loading = this.loadingCtrl.create({
+        content: 'Creating Account...'
+      });
+      
+      loading.present();
+      
+      this.http.post('/signup', data).subscribe(response => {
+        var resBody = JSON.parse(response["_body"]);
+        loading.dismiss();
+        
+        if (!resBody.err) {
+          let toast = this.toastCtrl.create({
+            message: "Successfully Registered!",
+            duration: 2000
+          });
+          
+          toast.present();
+          
+          this.storage.set("session-id", resBody.session);
+          
+          this.navCtrl.setRoot(HomePage);
+        } else {
+          let toast = this.toastCtrl.create({
+            message: resBody.type,
+            duration: 2000
+          });
+  
+          toast.present();
+        }
+      });
     });
+
+    companyModal.present();
   }
   
   createComp() {
