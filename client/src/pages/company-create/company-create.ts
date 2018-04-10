@@ -26,7 +26,9 @@ export class CompanyCreatePage {
   createComp() {
     let data = {
       //usr: this.creds.username, // the data that will be sent to the server
-      name: this.creds.name
+      name: this.creds.name, // Company name
+      dscr: this.creds.description, // Company Description
+      pass: this.creds.passphrase // The passphrase used to join the company
     }
     
     let loading = this.loadingCtrl.create({
