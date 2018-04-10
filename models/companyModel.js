@@ -18,9 +18,9 @@ exports.findCompanyByName = function(name){
     });
 }
 
-exports.createCompany = function(name){
+exports.createCompany = function(name, passphrase, description){
   return new Promise(function(resolve){
-    db.insertOne({name:name}, function(err, doc) {
+    db.insertOne({name:name, passphrase:passphrase, description:description}, function(err, doc) {
         if (!err) {
             resolve(true);
         } else {
