@@ -9,19 +9,19 @@ var helper = require("./helper");
 router.use(express.static(__dirname + "/client/www"));
 
 router.get('/', function(req, res, next){ // send Ionic Web App on / route
-    console.log("entered main route");
-    console.log(__dirname + "/client/www/index.html");
-    res.sendFile(__dirname + "/client/www/index.html");
+  console.log("entered main route");
+  console.log(__dirname + "/client/www/index.html");
+  res.sendFile(__dirname + "/client/www/index.html");
 });
 
 router.post('/login', function(req, res, next) {
-    userModel.findUser(req.body.usr, req.body.pwd).then(function(obj){ // PROMISES!!!!!
-        if (obj.found){ //check if the user was found
-            res.json({loggedIn:true, session:obj.doc.sessionID});
-        } else {
-            res.json({loggedIn:false});
-        }
-    });
+  userModel.findUser(req.body.usr, req.body.pwd).then(function(obj){ // PROMISES!!!!!
+    if (obj.found){ //check if the user was found
+      res.json({loggedIn:true, session:obj.doc.sessionID});
+    } else {
+      res.json({loggedIn:false});
+    }
+  });
 });
 
 router.post('/signup', function(req, res, next) {
@@ -33,7 +33,7 @@ router.post('/signup', function(req, res, next) {
       res.json({err:1, type:"Password is shorter than 8 characters!"});
     } else { // otherwise the username is good/unique and the password is long enough
       
-      compModel.findCompanyByName(req.body.cmp).then(function(obj){ // try to find the company the user said he was part of
+      compModel.companyAuth(req.body.cmp, req.body.pass).then(function(obj){ // try to find the company the user said he was part of
         if (obj.found){ // if the company was found, we're good
           var sessionID = helper.makeid(16);
           //var sessionExpiration = new Date.now() + 24*60*60*1000; // set the session expiration to 1 day from now (24 hours)
@@ -50,7 +50,7 @@ router.post('/signup', function(req, res, next) {
             }
           }); 
         } else { // If the company does not exist, the user cannot join it
-          res.json({err:1, type:"Company Does Not Exist!"});
+          res.json({err:1, type:"Invalid Company Details!"});
         }
       });
     }
