@@ -11,9 +11,9 @@ export class LoadingPage {
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
   ) { 
-    let loading = this.loadingCtrl.create({
-        content: 'Please Wait...'
-    });
-    loading.present();
+    // let loading = this.loadingCtrl.create({
+    //     content: 'Please Wait...'
+    // });
+    // loading.present();
   }
 }
