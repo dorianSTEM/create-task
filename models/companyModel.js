@@ -18,6 +18,19 @@ exports.findCompanyByName = function(name){
     });
 }
 
+exports.companyAuth = function(name, passphrase){
+    return new Promise(function(resolve){
+        db.findOne({name:name, passphrase:passphrase}).then(function(doc) {
+          if (doc) {
+              console.log(doc);
+              resolve({found:true, doc:doc}); // Have to send Object for 2 Args
+          } else {
+              resolve({found:false});
+          }
+        });
+    });
+}
+
 exports.createCompany = function(name, passphrase, description){
   return new Promise(function(resolve){
     db.insertOne({name:name, passphrase:passphrase, description:description}, function(err, doc) {
