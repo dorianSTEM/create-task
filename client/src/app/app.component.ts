@@ -48,7 +48,7 @@ export class MyApp {
       }).then((val) => {
           statusBar.styleDefault();
           splashScreen.hide();
-          this.rootPage.loading.dismiss();
+          // this.rootPage.loading.dismiss();
       });
     });
   }
