@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { CompanyCreatePage } from '../pages/company-create/company-create';
 import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
+import { LoadingPage } from '../pages/loading/loading';
 
 //import { Toast } from '@ionic-native/toast';
 
@@ -20,7 +21,8 @@ import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
     HomePage,
     LoginPage,
     CompanyCreatePage,
-    PassPage
+    PassPage,
+    LoadingPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
     HomePage,
     LoginPage,
     CompanyCreatePage,
-    PassPage
+    PassPage,
+    LoadingPage
   ],
   providers: [
     StatusBar,
