@@ -42,6 +42,8 @@ export class MyApp {
               this.rootPage = LoginPage;
             }
           });
+        } else {
+          this.rootPage = LoginPage;
         }
       }).then((val) => {
           statusBar.styleDefault();
