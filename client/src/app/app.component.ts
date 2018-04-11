@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { CompanyCreatePage } from '../pages/company-create/company-create';
+import { LoadingPage } from '../pages/loading/loading';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +17,7 @@ import { CompanyCreatePage } from '../pages/company-create/company-create';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   
-  rootPage:any;
+  rootPage:any = LoadingPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public http: Http, public storage: Storage) {
