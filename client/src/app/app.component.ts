@@ -16,7 +16,7 @@ import { CompanyCreatePage } from '../pages/company-create/company-create';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   
-  rootPage:any = LoginPage;
+  rootPage:any;
   pages: Array<{title: string, component: any}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public http: Http, public storage: Storage) {
@@ -37,6 +37,8 @@ export class MyApp {
             if (!resBody.err){
               console.log("User Logged In, switching to Home Page");
               this.rootPage = HomePage; 
+            } else {
+              this.rootPage = LoginPage;
             }
           });
         }
