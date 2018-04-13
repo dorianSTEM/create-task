@@ -21,9 +21,12 @@ var connect = function(db){ // Parameters: col: the collection name, cb: a callb
     MongoClient.connect(uri, function(err, client) {
         const usersCollection = client.db(db).collection("users");
         const companyCollection = client.db(db).collection("companies");
-      
+        const eventsCollection = client.db(db).collection("events");
+
         mongo.users = usersCollection;
         mongo.companies = companyCollection;
+        mongo.events = eventsCollection;
+
         mongo.client = client;
         
         mongo.ready = true;

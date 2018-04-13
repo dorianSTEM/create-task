@@ -46,9 +46,9 @@ exports.getUserBySession = function(sessionID){
   return new Promise(function(resolve){
     db.findOne({sessionID:sessionID}).then(function(doc) {
       if (doc){
-        resolve(true, doc);
+        resolve({found:true, doc:doc});
       } else {
-        resolve(false);
+        resolve({found:false});
       }
     });
   });
