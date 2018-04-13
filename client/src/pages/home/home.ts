@@ -19,14 +19,14 @@ export class HomePage {
     var companyName;
 
     this.storage.get('username').then((val) => {
-      username = val;
+      this.username = val;
     });
 
     this.storage.get('company').then((val) => {
       companyName = val;
     });
 
-    this.data.username = username;
-    this.data.company = companyName;
+    //this.data.username = username;
+    //this.data.company = companyName;
   }
 }
