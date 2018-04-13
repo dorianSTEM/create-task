@@ -9,8 +9,8 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
   data:any = {
-    username: "",
-    company: ""
+    username: "bob",
+    company: "Hello World Inc."
   };
   constructor(public navCtrl: NavController, public storage: Storage) {
     var username;
