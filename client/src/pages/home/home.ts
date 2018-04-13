@@ -12,6 +12,8 @@ export class HomePage {
     username: "bob",
     company: "Hello World Inc."
   };
+
+  username = "bobby";
   constructor(public navCtrl: NavController, public storage: Storage) {
     var username;
     var companyName;
