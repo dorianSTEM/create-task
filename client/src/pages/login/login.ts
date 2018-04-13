@@ -45,8 +45,20 @@ export class LoginPage {
       if (resBody.loggedIn){
         toastMsg = "Successfully Logged In!";
         this.storage.set("session-id", resBody.session);
-        
-        this.navCtrl.setRoot(HomePage);
+
+        this.http.post('/authenticate', {session:resBody.session}).subscribe(response => {
+          var resBody = JSON.parse(response["_body"]);
+          if (!resBody.err){
+            console.log("User Logged In, switching to Home Page");
+
+            this.storage.set('username', resBody.username);
+            this.storage.set('company', resBody.company);
+
+            this.navCtrl.setRoot(HomePage); 
+          } else {
+            toastMsg = "Session Error... Please Try Again..";
+          }
+        });
       } else {
         toastMsg = "Invalid Credentials"
       }
@@ -97,7 +109,17 @@ export class LoginPage {
           
           toast.present();
           
-          this.storage.set("session-id", resBody.session);
+          this.http.post('/authenticate', {session:resBody.session}).subscribe(response => {
+            var resBody = JSON.parse(response["_body"]);
+            if (!resBody.err){
+              console.log("User Logged In, switching to Home Page");
+  
+              this.storage.set('username', resBody.username);
+              this.storage.set('company', resBody.company);
+  
+              this.navCtrl.setRoot(HomePage); 
+            }
+          });
           
           this.navCtrl.setRoot(HomePage);
         } else {
