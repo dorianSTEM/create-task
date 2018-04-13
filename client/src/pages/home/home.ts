@@ -8,22 +8,16 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  data:any = {
-    username: "bob",
-    company: "Hello World Inc."
-  };
+  username = "person";
+  company = "123";
 
-  username = "bobby";
   constructor(public navCtrl: NavController, public storage: Storage) {
-    var username;
-    var companyName;
-
     this.storage.get('username').then((val) => {
       this.username = val;
     });
 
     this.storage.get('company').then((val) => {
-      companyName = val;
+      this.company = val;
     });
 
     //this.data.username = username;
