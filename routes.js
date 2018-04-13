@@ -1,3 +1,8 @@
+// By: Dorian Cauwe
+// AP COMPUTER SCIENCE PRINCIPLES CREATE PERFORMANCE TASK
+// April, 2018
+// server URL: create-performance.herokuapp.com
+
 var express = require('express');
 var router = express.Router();
 
@@ -7,6 +12,12 @@ var compModel = require("./models/companyModel");
 var helper = require("./helper");
 
 router.use(express.static(__dirname + "/client/www"));
+
+// -------------------- Error Codes --------------------
+// - Passed with JSON err key/value
+// 0: No Error, the request was completed successfully
+// 1: User Error, this can be Authentication or Sign Up Error
+// 2: Company Error, this can be company Authentication or Duplicate Company Error
 
 router.get('/', function(req, res, next){ // send Ionic Web App on / route
   console.log("entered main route");
@@ -50,7 +61,7 @@ router.post('/signup', function(req, res, next) {
             }
           }); 
         } else { // If the company does not exist, the user cannot join it
-          res.json({err:1, type:"Invalid Company Details!"});
+          res.json({err:2, type:"Invalid Company Details!"});
         }
       });
     }
@@ -73,14 +84,50 @@ router.post('/createCompany', function(req, res, next){
   });
 });
 
-router.post('/authenticate', function(req, res, next){ // authenticate with user ID
-  userModel.getUserBySession(req.body.session).then(function(found, doc){
-    if (found){ // if we found the user by his session, send the OK
-      res.json({err:0});
+router.post('/authenticate', function(req, res, next){ // authenticate with user ID, send user and company details back
+  userModel.getUserBySession(req.body.session).then(function(obj){
+    console.log(obj.doc);
+    if (obj.found){ // if we found the user by his session, send the OK (and user info)
+
+      compModel.findCompanyByObjID(obj.doc.companyID).then(function(compObj){
+        if (compObj.found){
+          res.json({err:0, username:obj.doc.username, company:compObj.doc.name});
+        } else {
+          res.json({err:1}); 
+        }
+      });
     } else { // otherwise, send the NOK
-      res.json({err:1})
+      res.json({err:1});
     }
   });
 });
+
+// router.post('/updates', function(req, res, next){ // check for new announcements.
+//   var lastTimeStamp = req.body.timeStamp; // This timestamp is sent to represent when data was retrieved for the last time
+  
+//   userModel.getUserBySession(req.body.session).then(function(obj){ // First, find the User by his session (In order to find company ID)
+//     if (obj.found){
+//       var companyObjID = obj.doc.companyID;
+//       //res.json({err:0});
+
+//       compModel.findCompanyByObjID(companyObjID).then(function(obj){
+//         if (obj.found){
+//           if (obj.doc.timestamp > lastTimeStamp){ // Check if the latest company updates were done before the client app last refreshed info
+            
+//             res.json({err:0, newInfo:true, companyDoc:obj.doc});
+//           } else {
+//             res.json({err:0, newInfo:false});
+//           }
+
+//         } else {
+//           res.json({err:2, type:"Your Company Does Not Exist..."});
+//         }
+//       });
+
+//     } else {
+//       res.json({err:1, type:"Authenticaton Error, Please Log In Again..."});
+//     }
+//   });
+// });
 
 module.exports = router;
