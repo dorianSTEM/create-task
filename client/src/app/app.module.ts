@@ -13,6 +13,9 @@ import { CompanyCreatePage } from '../pages/company-create/company-create';
 import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
 import { LoadingPage } from '../pages/loading/loading';
 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+const config: SocketIoConfig = { url: 'http://create-performance.herokuapp.com/', options: {} };
+
 //import { Toast } from '@ionic-native/toast';
 
 @NgModule({
@@ -28,6 +31,7 @@ import { LoadingPage } from '../pages/loading/loading';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
+    SocketIoModule.forRoot(config),
     HttpModule,
     //Toast
   ],
