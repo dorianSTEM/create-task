@@ -33,10 +33,14 @@ export class MyApp {
       this.storage.get('session-id').then((val) => {
         console.log('We have session ', val);
         if (val){
-            this.http.post('/authenticate', {session:val}).subscribe(response => {
+          this.http.post('/authenticate', {session:val}).subscribe(response => {
             var resBody = JSON.parse(response["_body"]);
             if (!resBody.err){
               console.log("User Logged In, switching to Home Page");
+
+              this.storage.set('username', resBody.username);
+              this.storage.set('company', resBody.company);
+
               this.rootPage = HomePage; 
             } else {
               this.rootPage = LoginPage;
