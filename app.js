@@ -15,6 +15,14 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  socket.on('disconnect', function(){
+    console.log("disconnect.");
+  });
+});
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -65,5 +73,5 @@ var port = normalizePort(process.env.PORT || '3000');
 
 http.listen(port, function(){
   console.log("STARTED");
-  console.log('listening on *:3000');
+  console.log('listening on *:' + port);
 });
