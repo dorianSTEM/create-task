@@ -12,6 +12,9 @@ var route = require('./routes');
 
 var app = express();
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -42,4 +45,7 @@ app.use(function(err, req, res, next) {
   res.json({'err':1});
 });
 
-module.exports = app;
+http.listen(3000, function(){
+  console.log("STARTED");
+  console.log('listening on *:3000');
+});
