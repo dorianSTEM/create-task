@@ -3,7 +3,6 @@ var modelHelper = require("./modelHelper");
 var db;
 modelHelper.mongo.onReady(function(mongo){
   db = mongo.companies;
-  pollCompany();
 });
 
 exports.findCompanyByName = function(name){
@@ -67,30 +66,4 @@ exports.touch = function(companyID) {
             }
           });
       });
-}
-
-
-var pollCompany = function(){
-    let updateOps = {
-        $match: {
-            operationType: "update"
-        }
-    };
-    
-    const changeStreamCursor = db.watch([updateOps]);
-    
-    pollStream(changeStreamCursor);
-    
-    //this function polls a change stream and prints out each change as it comes in
-    function pollStream(cursor) {
-        while (!cursor.isExhausted()) {
-            if (cursor.hasNext()) {
-                change = cursor.next();
-                console.log("----------------------- CHANGE --------------------------");
-                console.log(JSON.stringify(change));
-                console.log("---------------------------------------------------------");
-            }
-        }
-        pollStream(cursor);
-    }
 }
