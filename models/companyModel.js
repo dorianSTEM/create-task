@@ -1,4 +1,4 @@
-var modelHelper = require("./modelHelper");
+var modelHelper = require("./modelHelper")
 
 var db;
 modelHelper.mongo.onReady(function(mongo){
@@ -56,7 +56,7 @@ exports.findCompanyByObjID = function(companyID){
       });
 }
 
-exports.touch = function(companyID) {
+exports.touch = function(companyID) { // "touch" company info (change timestamp)
     return new Promise(function(resolve){
         db.updateOne({_id:companyID}, {$set:{timestamp:new Date().getTime()}}, function(err, res) {
             if (err) {
