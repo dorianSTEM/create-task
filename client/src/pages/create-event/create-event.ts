@@ -19,49 +19,48 @@ export class CreateEventPage {
     session: any;
 
     constructor(private http: Http, private storage: Storage, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
-      var session;
-      this.storage.get('session-id').then((val) => {
-        session =  val;
-        console.log("After getting it, the session is", session);
-      }).then(function(){
-        console.log("The session variable is", session);
-        this.session = session;
-        console.log("THE SESSION IS, ", this.session)
-      });
     }
 
     eventCreate(){
-      let data = {
-        title: this.creds.title, // the data that will be sent to the server
-        msg: this.creds.description, // field names are shortened to reduce traffic
-        session: this.session
-      }
+      var creds = this.creds;
+      var loadingCtrl = this.loadingCtrl;
+      var http = this.http;
+      var toastCtrl = this.toastCtrl;
 
-      console.log("SESSION", this.session);
-      console.log("DATA SESSION", data.session);
-  
-      let loading = this.loadingCtrl.create({
-        content: 'Publishing Event...'
-      });
+      this.storage.get('session-id').then((val) => {
+        var session =  val;
+        console.log("After getting it, the session is", session);
 
-      loading.present();
-  
-      this.http.post('/createEvent', data).subscribe(response => {
-        var resBody = JSON.parse(response["_body"]);
-
-        var toastMsg = "";
-        if (!resBody.err){
-          toastMsg = "Success!"
-        } else {
-          toastMsg = "Unknown Error, pleasy try again later..."
+        let data = {
+          title: creds.title, // the data that will be sent to the server
+          msg: creds.description, // field names are shortened to reduce traffic
+          session: session
         }
-
-        let toast = this.toastCtrl.create({
-          message: toastMsg,
-          duration: 2000
+    
+        let loading = loadingCtrl.create({
+          content: 'Publishing Event...'
         });
-        loading.dismiss();
-        toast.present();
-      });
+  
+        loading.present();
+    
+        http.post('/createEvent', data).subscribe(response => {
+          var resBody = JSON.parse(response["_body"]);
+  
+          var toastMsg = "";
+          if (!resBody.err){
+            toastMsg = "Success!"
+          } else {
+            toastMsg = "Unknown Error, pleasy try again later..."
+          }
+  
+          let toast = toastCtrl.create({
+            message: toastMsg,
+            duration: 2000
+          });
+          loading.dismiss();
+          toast.present();
+        });
+      })
+
     }
 }
