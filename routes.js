@@ -9,6 +9,8 @@ var router = express.Router();
 var userModel = require("./models/userModel");
 var compModel = require("./models/companyModel");
 
+var eventModel = require("./models/eventModel");
+
 var helper = require("./helper");
 
 router.use(express.static(__dirname + "/client/www"));
@@ -96,6 +98,18 @@ router.post('/authenticate', function(req, res, next){ // authenticate with user
           res.json({err:1}); 
         }
       });
+    } else { // otherwise, send the NOK
+      res.json({err:1});
+    }
+  });
+});
+
+router.post("/createEvent", function(req, res, next){
+  userModel.getUserBySession(req.body.session).then(function(obj){
+    console.log(obj.doc);
+    if (obj.found){ // if we found the user by his session, send the OK (and user info)      
+      eventModel.createEvent(obj.doc.companyID, req.body.title, req.body.msg);
+      res.json({err:0});
     } else { // otherwise, send the NOK
       res.json({err:1});
     }

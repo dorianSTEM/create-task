@@ -15,13 +15,9 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-io.on('connection', function(socket){
-  console.log('a user connected');
+var socketHandler = require("./sockethandler");
 
-  socket.on('disconnect', function(){
-    console.log("disconnect.");
-  });
-});
+io.on('connection', socketHandler.connection);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
