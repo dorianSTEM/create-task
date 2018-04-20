@@ -27,7 +27,7 @@ export class HomePage {
     this.socket.connect();
 
     this.storage.get('session-id').then((val) => {
-      this.socket.emit('session', val);
+      this.socket.emit('session-id', val);
     });
 
     this.socket.on('new', function(info){
