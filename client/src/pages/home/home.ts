@@ -25,8 +25,15 @@ export class HomePage {
     });
 
     this.socket.connect();
+
     this.storage.get('session-id').then((val) => {
       this.socket.emit('session', val);
+    });
+
+    this.socket.on('new', function(info){
+      console.log("-------INFO-------");
+      console.log(info);
+      console.log("------------------");
     });
 
     //this.data.username = username;
