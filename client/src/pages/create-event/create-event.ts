@@ -24,8 +24,12 @@ export class CreateEventPage {
       let data = {
         title: this.creds.title, // the data that will be sent to the server
         msg: this.creds.description, // field names are shortened to reduce traffic
-        session: this.storage.get('session-id')
+        session: "1"
       }
+
+      this.storage.get('session-id').then((val) => {
+        data.session =  val;
+      });
 
       console.log("SESSION", data.session);
   
