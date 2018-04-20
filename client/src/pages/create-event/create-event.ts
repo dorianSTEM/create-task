@@ -21,40 +21,42 @@ export class CreateEventPage {
     }
 
     eventCreate(){
-      let data = {
-        title: this.creds.title, // the data that will be sent to the server
-        msg: this.creds.description, // field names are shortened to reduce traffic
-        session: "1"
-      }
+      var session;
 
       this.storage.get('session-id').then((val) => {
-        data.session =  val;
-      });
-
-      console.log("SESSION", data.session);
-  
-      let loading = this.loadingCtrl.create({
-        content: 'Publishing Event...'
-      });
-
-      loading.present();
-  
-      this.http.post('/createEvent', data).subscribe(response => {
-        var resBody = JSON.parse(response["_body"]);
-
-        var toastMsg = "";
-        if (!resBody.err){
-          toastMsg = "Success!"
-        } else {
-          toastMsg = "Unknown Error, pleasy try again later..."
+        session =  val;
+      }).then(function(){
+        let data = {
+          title: this.creds.title, // the data that will be sent to the server
+          msg: this.creds.description, // field names are shortened to reduce traffic
+          session: session
         }
-
-        let toast = this.toastCtrl.create({
-          message: toastMsg,
-          duration: 2000
+  
+        console.log("SESSION", data.session);
+    
+        let loading = this.loadingCtrl.create({
+          content: 'Publishing Event...'
         });
-        loading.dismiss();
-        toast.present();
+  
+        loading.present();
+    
+        this.http.post('/createEvent', data).subscribe(response => {
+          var resBody = JSON.parse(response["_body"]);
+  
+          var toastMsg = "";
+          if (!resBody.err){
+            toastMsg = "Success!"
+          } else {
+            toastMsg = "Unknown Error, pleasy try again later..."
+          }
+  
+          let toast = this.toastCtrl.create({
+            message: toastMsg,
+            duration: 2000
+          });
+          loading.dismiss();
+          toast.present();
+        });
       });
     }
 }
