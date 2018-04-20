@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { Socket } from 'ng-socket-io';
@@ -18,7 +18,7 @@ export class CreateEventPage {
     creds: any = {};
     session: any;
 
-    constructor(private http: Http, private storage: Storage, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+    constructor(private http: Http, private storage: Storage, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public viewCtrl: ViewController) {
     }
 
     eventCreate(){
@@ -26,6 +26,7 @@ export class CreateEventPage {
       var loadingCtrl = this.loadingCtrl;
       var http = this.http;
       var toastCtrl = this.toastCtrl;
+      var viewCtrl = this.viewCtrl;
 
       this.storage.get('session-id').then((val) => {
         var session =  val;
@@ -59,8 +60,9 @@ export class CreateEventPage {
           });
           loading.dismiss();
           toast.present();
+          viewCtrl.dismiss();
         });
-      })
+      });
 
     }
 }

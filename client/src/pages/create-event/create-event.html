@@ -24,7 +24,7 @@
     
         <ion-row>
           <ion-col class="signup-col">
-            <button ion-button class="register-btn" block clear (click)="eventCreate()" >Create Event</button>
+            <button ion-button class="register-btn" block clear (click)="eventCreate()" [disabled]="!registerForm.form.valid">Create Event</button>
           </ion-col>
         </ion-row>
     
