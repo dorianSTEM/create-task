@@ -33,13 +33,15 @@ export class HomePage {
       this.socket.emit('session-id', {sessionID:val, timestamp:this.timestamp});
     });
 
+    var that = this;
+
     this.socket.on('new', function(info){
       console.log("-------INFO-------");
       console.log(info);
-      this.timestamp = info.timestamp; // update the timestamp based on new data
-      console.log(this.eventTemplate);
-      
-      this.eventTemplate = this.eventTemplate.concat(info.docs);
+      that.timestamp = info.timestamp; // update the timestamp based on new data
+      console.log(that.eventTemplate);
+
+      that.eventTemplate = that.eventTemplate.concat(info.docs);
 
       console.log("------------------");
     });
