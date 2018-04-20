@@ -30,10 +30,14 @@ exports.connection = function(socket){
                     sockets[obj.doc.companyID].push({username:obj.doc.username, socket:socket, lastCheck:0})
                   }
                 }
+                
+                console.log("WE HAVE A TIMESTAMP", timestamp);
 
                 eventModel.getCompanyEvents(obj.doc.companyID, timestamp).then(function(obj) {
                   if (obj.found){
-                    sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
+                    for (var sock in sockets[obj.doc.companyID]){
+                      sockets[obj.doc.companyID][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
+                    }
                   }
                 });
 
@@ -47,11 +51,11 @@ exports.triggerCompany = function(company, timestamp){
   console.log("COMPANY triggered");
   //console.log(JSON.stringify(sockets));
   console.log("AVAILABLE COMPANIES", sockets[company]);
-  for (var sock in sockets[company]){
-    eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
-      if (obj.found){
+  eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
+    if (obj.found){
+      for (var sock in sockets[company]){
         sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
       }
-    });
-  }
+    }
+  });
 }
