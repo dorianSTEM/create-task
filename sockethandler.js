@@ -32,6 +32,8 @@ exports.connection = function(socket){
 }
 
 exports.triggerCompany = function(company){
+  console.log("COMPANY triggered");
+  console.log("AVAILABLE COMPANIES", sockets[company]);
   for (var sock in sockets[company]){
     eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
       if (obj.found){
