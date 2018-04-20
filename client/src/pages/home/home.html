@@ -23,14 +23,15 @@
   </div>-->
 
   <ion-content class="cards-bg">
-    <ion-card>
+   
+    <ion-card *ngFor="let evt of eventTemplate">
       <img src="https://cdn.vidyard.com/thumbnails/1036178/iNbHh2ST8ksU1SA8kmvlUr-CYSq_eicQ.jpg"/>
       <ion-card-content>
         <ion-card-title>
-          MongoDB World
+          {{ eventTemplate.evt.title }}
         </ion-card-title>
         <p>
-          This is one of the most important conferences for our company.
+          {{ eventTemplate.evt.msg }}
         </p>
       </ion-card-content>
 
