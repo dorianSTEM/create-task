@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { CompanyCreatePage } from '../pages/company-create/company-create';
 import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
 import { LoadingPage } from '../pages/loading/loading';
+import { CreateEventPage } from '../pages/create-event/create-event';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 const config: SocketIoConfig = { url: 'http://create-performance.herokuapp.com/', options: {} };
@@ -25,7 +26,8 @@ const config: SocketIoConfig = { url: 'http://create-performance.herokuapp.com/'
     LoginPage,
     CompanyCreatePage,
     PassPage,
-    LoadingPage
+    LoadingPage,
+    CreateEventPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ const config: SocketIoConfig = { url: 'http://create-performance.herokuapp.com/'
     LoginPage,
     CompanyCreatePage,
     PassPage,
-    LoadingPage
+    LoadingPage,
+    CreateEventPage
   ],
   providers: [
     StatusBar,
