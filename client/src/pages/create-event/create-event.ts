@@ -34,7 +34,8 @@ export class CreateEventPage {
         session: this.session
       }
 
-      console.log("SESSION", data.session);
+      console.log("SESSION", this.session);
+      console.log("DATA SESSION", data.session);
   
       let loading = this.loadingCtrl.create({
         content: 'Publishing Event...'
