@@ -16,48 +16,47 @@ import { ToastController } from 'ionic-angular';
 })
 export class CreateEventPage {
     creds: any = {};
-    constructor(private http: Http, private storage: Storage, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+    session: any = {};
 
+    constructor(private http: Http, private storage: Storage, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+      var session;
+      this.storage.get('session-id').then((val) => {
+        session =  val;
+      });
+      this.session = session;
     }
 
     eventCreate(){
-      var session;
-      var creds = this.creds;
+      let data = {
+        title: this.creds.title, // the data that will be sent to the server
+        msg: this.creds.description, // field names are shortened to reduce traffic
+        session: this.session
+      }
 
-      this.storage.get('session-id').then((val) => {
-        session =  val;
-      }).then(function(){
-        let data = {
-          title: creds.title, // the data that will be sent to the server
-          msg: creds.description, // field names are shortened to reduce traffic
-          session: session
+      console.log("SESSION", data.session);
+  
+      let loading = this.loadingCtrl.create({
+        content: 'Publishing Event...'
+      });
+
+      loading.present();
+  
+      this.http.post('/createEvent', data).subscribe(response => {
+        var resBody = JSON.parse(response["_body"]);
+
+        var toastMsg = "";
+        if (!resBody.err){
+          toastMsg = "Success!"
+        } else {
+          toastMsg = "Unknown Error, pleasy try again later..."
         }
-  
-        console.log("SESSION", data.session);
-    
-        let loading = this.loadingCtrl.create({
-          content: 'Publishing Event...'
+
+        let toast = this.toastCtrl.create({
+          message: toastMsg,
+          duration: 2000
         });
-  
-        loading.present();
-    
-        this.http.post('/createEvent', data).subscribe(response => {
-          var resBody = JSON.parse(response["_body"]);
-  
-          var toastMsg = "";
-          if (!resBody.err){
-            toastMsg = "Success!"
-          } else {
-            toastMsg = "Unknown Error, pleasy try again later..."
-          }
-  
-          let toast = this.toastCtrl.create({
-            message: toastMsg,
-            duration: 2000
-          });
-          loading.dismiss();
-          toast.present();
-        });
+        loading.dismiss();
+        toast.present();
       });
     }
 }
