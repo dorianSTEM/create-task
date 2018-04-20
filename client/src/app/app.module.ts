@@ -15,7 +15,7 @@ import { LoadingPage } from '../pages/loading/loading';
 import { CreateEventPage } from '../pages/create-event/create-event';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-const config: SocketIoConfig = { url: 'http://create-performance.herokuapp.com/', options: {} };
+const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/', options: {} };
 
 //import { Toast } from '@ionic-native/toast';
 
