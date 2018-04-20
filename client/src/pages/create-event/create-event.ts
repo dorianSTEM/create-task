@@ -16,7 +16,7 @@ import { ToastController } from 'ionic-angular';
 })
 export class CreateEventPage {
     creds: any = {};
-    session: any = {};
+    session: any;
 
     constructor(private http: Http, private storage: Storage, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
       var session;
@@ -24,6 +24,7 @@ export class CreateEventPage {
         session =  val;
       });
       this.session = session;
+      console.log("THE SESSION IS, ", this.session)
     }
 
     eventCreate(){
