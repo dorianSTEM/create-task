@@ -23,10 +23,11 @@ export class CreateEventPage {
       this.storage.get('session-id').then((val) => {
         session =  val;
         console.log("After getting it, the session is", session);
+      }).then(function(){
+        console.log("The session variable is", session);
+        this.session = session;
+        console.log("THE SESSION IS, ", this.session)
       });
-      console.log("The session variable is", session);
-      this.session = session;
-      console.log("THE SESSION IS, ", this.session)
     }
 
     eventCreate(){
