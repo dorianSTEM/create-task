@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-navbar>      
+      <ion-title>
+        Create New Company Event
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <form #registerForm="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+              <ion-item>
+                <ion-input type="text" placeholder="Event Title" name="evt-title" [(ngModel)]="creds.title" required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-textarea elastic id="description" placeholder="Event description..." name="evt-descr" [(ngModel)]="creds.description" required></ion-textarea>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+    
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="register-btn" block clear (click)="eventCreate()" >Create Event</button>
+          </ion-col>
+        </ion-row>
+    
+      </form>
+  </ion-content>
+  

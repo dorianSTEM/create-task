@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { Socket } from 'ng-socket-io';
+
+import { CreateEventPage } from "../create-event/create-event"
 
 @Component({
   selector: 'page-home',
@@ -12,7 +15,7 @@ export class HomePage {
   username = "person";
   company = "123";
 
-  constructor(public navCtrl: NavController, public storage: Storage, private socket: Socket) {
+  constructor(public navCtrl: NavController, public storage: Storage, private socket: Socket, public modalCtrl: ModalController) {
     this.storage.get('username').then((val) => {
       this.username = val;
     });
@@ -28,5 +31,10 @@ export class HomePage {
 
     //this.data.username = username;
     //this.data.company = companyName;
+  }
+
+  createEvent(){
+    let companyModal = this.modalCtrl.create(CreateEventPage);
+    companyModal.present();
   }
 }
