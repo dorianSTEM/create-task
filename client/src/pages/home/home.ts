@@ -37,6 +37,8 @@ export class HomePage {
       console.log("-------INFO-------");
       console.log(info);
       this.timestamp = info.timestamp; // update the timestamp based on new data
+      console.log(this.eventTemplate);
+      
       this.eventTemplate = this.eventTemplate.concat(info.docs);
 
       console.log("------------------");
