@@ -1,4 +1,3 @@
-
 var userModel = require("./models/userModel");
 var compModel = require("./models/companyModel");
 var eventModel = require("./models/eventModel");
@@ -13,8 +12,11 @@ exports.connection = function(socket){
         console.log("disconnect.");
     });
 
-    socket.on("session-id", function(sessionID){
+    socket.on("session-id", function(obj){ // set session ID and also send new event data
         console.log("Session ID acquired");
+        var sessionID = obj.sessionID;
+        var timestamp = obj.timestamp || 0;
+
         userModel.getUserBySession(sessionID).then(function(obj){
             console.log(obj.doc);
             if (obj.found){ // if we found the user by his session, send the OK (and user info)
@@ -28,20 +30,27 @@ exports.connection = function(socket){
                     sockets[obj.doc.companyID].push({username:obj.doc.username, socket:socket, lastCheck:0})
                   }
                 }
+
+                eventModel.getCompanyEvents(obj.doc.companyID, timestamp).then(function(obj) {
+                  if (obj.found){
+                    sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
+                  }
+                });
+
               });
             }
         });
     });
 }
 
-exports.triggerCompany = function(company){
+exports.triggerCompany = function(company, timestamp){
   console.log("COMPANY triggered");
   //console.log(JSON.stringify(sockets));
   console.log("AVAILABLE COMPANIES", sockets[company]);
   for (var sock in sockets[company]){
     eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
       if (obj.found){
-        sockets[company][sock].socket.emit('new', obj.docs);
+        sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
       }
     });
   }
