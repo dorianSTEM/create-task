@@ -22,10 +22,12 @@ export class CreateEventPage {
 
     eventCreate(){
       let data = {
-        usr: this.creds.username, // the data that will be sent to the server
-        pwd: this.creds.password, // field names are shortened to reduce traffic
+        title: this.creds.title, // the data that will be sent to the server
+        msg: this.creds.description, // field names are shortened to reduce traffic
         session: this.storage.get('session-id')
       }
+
+      console.log("SESSION", data.session);
   
       let loading = this.loadingCtrl.create({
         content: 'Publishing Event...'
