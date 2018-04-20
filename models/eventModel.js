@@ -21,9 +21,10 @@ exports.getCompanyEvents = function(companyID, timeframe){ // timeframe is the d
 
 exports.createEvent = function(companyID, title, msg){
     return new Promise(function(resolve){
-        db.insertOne({company:companyID, title:title, msg:msg, timestamp: new Date().getTime()}, function(err, doc) {
+        var timestamp = new Date().getTime();
+        db.insertOne({company:companyID, title:title, msg:msg, timestamp: timestamp}, function(err, doc) {
             if (!err) {
-                socketHandler.triggerCompany(companyID);
+                socketHandler.triggerCompany(companyID, timestamp);
                 resolve(true);
             } else {
                 resolve(false);
