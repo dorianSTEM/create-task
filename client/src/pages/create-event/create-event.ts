@@ -22,13 +22,14 @@ export class CreateEventPage {
 
     eventCreate(){
       var session;
+      var creds = this.creds;
 
       this.storage.get('session-id').then((val) => {
         session =  val;
       }).then(function(){
         let data = {
-          title: this.creds.title, // the data that will be sent to the server
-          msg: this.creds.description, // field names are shortened to reduce traffic
+          title: creds.title, // the data that will be sent to the server
+          msg: creds.description, // field names are shortened to reduce traffic
           session: session
         }
   
