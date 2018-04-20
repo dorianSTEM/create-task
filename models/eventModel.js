@@ -5,7 +5,7 @@ modelHelper.mongo.onReady(function(mongo){
   db = mongo.events;
 });
 
-exports.getCompanyEvents = function(companyID, timeframe){ // timeframe is 
+exports.getCompanyEvents = function(companyID, timeframe){ // timeframe is the date (UNIX time) when the user last updated his Even Info
     return new Promise(function(resolve){
         db.findOne({company:companyID, timestamp:{$gt:timeframe}}).then(function(doc) {
           if (doc) {
@@ -20,7 +20,7 @@ exports.getCompanyEvents = function(companyID, timeframe){ // timeframe is
 
 exports.createEvent = function(companyID, title, msg){
     return new Promise(function(resolve){
-        db.insertOne({company:companyID, title:title, msg:message, timestamp: new Date().getTime()}, function(err, doc) {
+        db.insertOne({company:companyID, title:title, msg:msg, timestamp: new Date().getTime()}, function(err, doc) {
             if (!err) {
                 resolve(true);
             } else {
