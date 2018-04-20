@@ -3,7 +3,8 @@ var userModel = require("./models/userModel");
 var compModel = require("./models/companyModel");
 var eventModel = require("./models/eventModel");
 
-var sockets = [];
+var sockets = {};
+//var socketCompanies = {};
 
 exports.connection = function(socket){
     console.log('a user connected');
@@ -18,12 +19,24 @@ exports.connection = function(socket){
             if (obj.found){ // if we found the user by his session, send the OK (and user info)
               compModel.findCompanyByObjID(obj.doc.companyID).then(function(compObj){
                 if (compObj.found){
-                  sockets.push({username:obj.doc.username, company:compObj.doc.name, socket:socket}); // Add this socket to the list of sockets
+                  if (!sockets[obj.doc.companyID]){
+                    sockets[obj.doc.companyID] = [{username:obj.doc.username, socket:socket, lastCheck:0}]; // Add this socket to the list of sockets
+                  } else {
+                    sockets[obj.doc.companyID].push({username:obj.doc.username, socket:socket, lastCheck:0})
+                  }
                 }
               });
-            } else { // otherwise, send the NOK
-              res.json({err:1});
             }
         });
     });
+}
+
+exports.triggerCompany = function(company){
+  for (var sock in sockets[company]){
+    eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
+      if (obj.found){
+        sockets[company][sock].socket.emit('new', obj.docs);
+      }
+    });
+  }
 }
