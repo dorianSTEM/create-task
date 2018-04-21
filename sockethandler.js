@@ -10,6 +10,16 @@ exports.connection = function(socket){
 
     socket.on('disconnect', function(){
         console.log("disconnect.");
+        for (var sock in sockets) {
+          if (p.hasOwnProperty(key)) {
+            var newSock = sockets[sock]
+            for (var s in newSock){
+              if (newSock[s].socket == socket){
+                sockets[sock].splice(s, 1);
+              }
+            }
+          }
+      }
     });
 
     socket.on("session-id", function(obj){ // set session ID and also send new event data
