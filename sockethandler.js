@@ -11,7 +11,7 @@ exports.connection = function(socket){
     socket.on('disconnect', function(){
         console.log("disconnect.");
         for (var sock in sockets) {
-          if (p.hasOwnProperty(key)) {
+          if (sockets.hasOwnProperty(key)) {
             var newSock = sockets[sock]
             for (var s in newSock){
               if (newSock[s].socket == socket){
