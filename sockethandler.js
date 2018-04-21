@@ -46,7 +46,7 @@ exports.connection = function(socket){
                 eventModel.getCompanyEvents(obj.doc.companyID, timestamp).then(function(eventObj) {
                   if (obj.found){
                     for (var sock in sockets[obj.doc.companyID]){
-                      sockets[obj.doc.companyID][sock].socket.emit('new', {docs:eventObj.docs, timestamp:timestamp});
+                      sockets[obj.doc.companyID][sock].socket.emit('new', {docs:eventObj.docs, timestamp:new Date().getTime()});
                     }
                   }
                 });
