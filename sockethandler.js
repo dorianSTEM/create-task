@@ -25,7 +25,7 @@ exports.connection = function(socket){
     socket.on("session-id", function(obj){ // set session ID and also send new event data
         console.log("Session ID acquired");
         var sessionID = obj.sessionID;
-        var timestamp = obj.timestamp || 0;
+        var timestamp = obj.timestamp || new Date().getTime();
 
         userModel.getUserBySession(sessionID).then(function(obj){
             console.log(obj.doc);
@@ -34,10 +34,10 @@ exports.connection = function(socket){
                 if (compObj.found){
                   if (!sockets[obj.doc.companyID]){
                     console.log("ADDING TO LIST");
-                    sockets[obj.doc.companyID] = [{username:obj.doc.username, socket:socket, lastCheck:0}]; // Add this socket to the list of sockets
+                    sockets[obj.doc.companyID] = [{username:obj.doc.username, socket:socket, lastCheck:timestamp}]; // Add this socket to the list of sockets
                   } else {
                     console.log("ADDING TO ARR");
-                    sockets[obj.doc.companyID].push({username:obj.doc.username, socket:socket, lastCheck:0})
+                    sockets[obj.doc.companyID].push({username:obj.doc.username, socket:socket, lastCheck:timestamp})
                   }
                 }
                 
@@ -46,7 +46,7 @@ exports.connection = function(socket){
                 eventModel.getCompanyEvents(obj.doc.companyID, timestamp).then(function(eventObj) {
                   if (obj.found){
                     for (var sock in sockets[obj.doc.companyID]){
-                      sockets[obj.doc.companyID][sock].socket.emit('new', {docs:eventObj.docs, timestamp:new Date().getTime()});
+                      sockets[obj.doc.companyID][sock].socket.emit('new', {docs:eventObj.docs, timestamp:timestamp});
                     }
                   }
                 });
