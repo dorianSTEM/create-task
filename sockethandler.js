@@ -64,6 +64,7 @@ exports.triggerCompany = function(company, timestamp){
   //console.log(JSON.stringify(sockets));
   console.log("AVAILABLE COMPANIES", sockets[company]);
   for (var sock in sockets[company]){
+    console.log("iterating over", sock);
     eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
       if (obj.found){
         sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
