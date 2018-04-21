@@ -65,6 +65,7 @@ exports.triggerCompany = function(company, timestamp){
     eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
       if (obj.found){
         sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
+        sockets[company][sock].lastCheck = timestamp;
       }
     });
   }
