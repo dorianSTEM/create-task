@@ -24,14 +24,14 @@
 
   <ion-content class="cards-bg">
    
-    <ion-card *ngFor="let evt of eventTemplate">
+    <ion-card *ngFor="let evt of eventTemplate; let i = index; trackBy:trackByIndex">
       <img src="https://cdn.vidyard.com/thumbnails/1036178/iNbHh2ST8ksU1SA8kmvlUr-CYSq_eicQ.jpg"/>
       <ion-card-content>
         <ion-card-title>
-          {{ evt.title }}
+          {{ eventTemplate[i].title }}
         </ion-card-title>
         <p>
-          {{ evt.msg }}
+          {{ eventTemplate[i].msg }}
         </p>
       </ion-card-content>
 

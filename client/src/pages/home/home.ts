@@ -54,4 +54,8 @@ export class HomePage {
     let companyModal = this.modalCtrl.create(CreateEventPage);
     companyModal.present();
   }
+
+  trackByIndex(index: number, value: number) {
+    return index;
+  }
 }
