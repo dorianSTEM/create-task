@@ -39,6 +39,8 @@ export class HomePage {
       console.log("-------INFO-------");
       console.log(info);
       that.timestamp = info.timestamp; // update the timestamp based on new data
+      console.log(that.timestamp);
+
       console.log(that.eventTemplate);
 
       that.eventTemplate = that.eventTemplate.concat(info.docs);
