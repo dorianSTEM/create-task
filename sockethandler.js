@@ -51,11 +51,11 @@ exports.triggerCompany = function(company, timestamp){
   console.log("COMPANY triggered");
   //console.log(JSON.stringify(sockets));
   console.log("AVAILABLE COMPANIES", sockets[company]);
-  eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
-    if (obj.found){
-      for (var sock in sockets[company]){
+  if (obj.found){
+    for (var sock in sockets[company]){
+      eventModel.getCompanyEvents(company, sockets[company][sock].lastCheck).then(function(obj) {
         sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
-      }
+      });
     }
-  });
+  }
 }
