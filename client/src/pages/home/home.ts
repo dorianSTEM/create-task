@@ -15,8 +15,6 @@ export class HomePage {
   username = "person";
   company = "123";
   timestamp: Number = 0;
-  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
   eventTemplate = [];
 
   constructor(public navCtrl: NavController, public storage: Storage, private socket: Socket, public modalCtrl: ModalController) {
@@ -46,10 +44,12 @@ export class HomePage {
 
       that.eventTemplate = info.docs;
 
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
       for (var doc in info.docs){
         var thisTimeStamp = new Date(info.docs[doc].timestamp);
         console.log("TIME:", info.docs[doc].timestamp);
-        info.docs[doc].prettyTime = this.months[thisTimeStamp.getMonth()] + " " + thisTimeStamp.getDay() + ", " + thisTimeStamp.getFullYear();
+        info.docs[doc].prettyTime = months[thisTimeStamp.getMonth()] + " " + thisTimeStamp.getDay() + ", " + thisTimeStamp.getFullYear();
       }
 
       console.log("------------------");
