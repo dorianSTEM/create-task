@@ -108,7 +108,7 @@ router.post("/createEvent", function(req, res, next){
   userModel.getUserBySession(req.body.session).then(function(obj){
     console.log(obj.doc);
     if (obj.found){ // if we found the user by his session, send the OK (and user info)      
-      eventModel.createEvent(obj.doc.companyID, req.body.title, req.body.msg);
+      eventModel.createEvent(obj.doc.companyID, req.body.title, req.body.msg, req.body.author);
       res.json({err:0});
     } else { // otherwise, send the NOK
       res.json({err:1});
