@@ -12,15 +12,17 @@
           <ion-col>
             <ion-list inset>
               <ion-item>
-                <ion-input type="text" placeholder="Event Title" name="evt-title" [(ngModel)]="creds.title" required></ion-input>
+                <ion-label floating>Event Title</ion-label>
+                <ion-input type="text" name="evt-title" [(ngModel)]="creds.title" required></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-textarea id="description" placeholder="Event description..." name="evt-descr" [(ngModel)]="creds.description" required></ion-textarea>
+                <ion-label floating>Description</ion-label>
+                <ion-textarea elasticTextArea id="description" name="evt-descr" [(ngModel)]="creds.description" required></ion-textarea>
               </ion-item>
 
               <ion-item>
-                <ion-label>Date</ion-label>
+                <ion-label floating>Date</ion-label>
                 <ion-datetime displayFormat="MM/DD/YYYY" name="evt-date" [(ngModel)]="creds.date" min="2016" max="3000-1-1" required></ion-datetime>
               </ion-item>
 
