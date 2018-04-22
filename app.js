@@ -17,6 +17,7 @@ var io = require('socket.io')(http);
 
 var socketHandler = require("./sockethandler");
 
+socketHandler.setIO(io);
 io.on('connection', socketHandler.connection);
 
 // uncomment after placing your favicon in /public
