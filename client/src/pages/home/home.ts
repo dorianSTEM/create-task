@@ -43,7 +43,7 @@ export class HomePage {
 
       console.log(that.eventTemplate);
 
-      that.eventTemplate = that.eventTemplate.concat(info.docs);
+      that.eventTemplate = info.docs;
 
       console.log("------------------");
     });
