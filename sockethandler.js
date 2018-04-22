@@ -42,7 +42,7 @@ exports.triggerCompany = function(company, timestamp){
   eventModel.getCompanyEvents(company, 0).then(function(obj) {
     if (obj.found){
       //sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
-      sockets.io.sockets.in(company).emit('new', {docs:obj.docs, timestamp:timestamp});
+      sockets.io.sockets.in(company).emit('new', {docs:obj.docs.reverse(), timestamp:timestamp});
     }
   });
 }
