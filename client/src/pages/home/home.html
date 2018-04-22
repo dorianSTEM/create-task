@@ -33,7 +33,7 @@
           <p>Posted On {{ eventTemplate[i].prettyTime }}</p>
         </ion-item>
 
-      <img src="https://cdn.vidyard.com/thumbnails/1036178/iNbHh2ST8ksU1SA8kmvlUr-CYSq_eicQ.jpg"/>
+      <img src="https://placeimg.com/600/337/tech"/>
       <ion-card-content>
         <ion-card-title>
           {{ eventTemplate[i].title }}
@@ -42,6 +42,13 @@
           {{ eventTemplate[i].msg }}
         </p>
       </ion-card-content>
+
+      <ion-row>
+        <button ion-button icon-left clear item-end>
+          <ion-icon name="time"></ion-icon>
+          April 30th, 2018
+        </button>
+      </ion-row>
 
       <ion-row no-padding>
         <ion-col>
@@ -58,6 +65,10 @@
         </ion-col>
       </ion-row>
     </ion-card>
+
+    <div class="center-text">
+      <p> No events yet. To add an Event, press +</p>
+    </div>
 
 
     <ion-fab right bottom>
