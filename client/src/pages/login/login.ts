@@ -109,6 +109,8 @@ export class LoginPage {
           
           toast.present();
           
+          this.storage.set("session-id", resBody.session);
+          
           this.http.post('/authenticate', {session:resBody.session}).subscribe(response => {
             var resBody = JSON.parse(response["_body"]);
             if (!resBody.err){
