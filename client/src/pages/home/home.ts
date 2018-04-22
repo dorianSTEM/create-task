@@ -49,7 +49,7 @@ export class HomePage {
       for (var doc in info.docs){
         var thisTimeStamp = new Date(info.docs[doc].timestamp);
         console.log("TIME:", info.docs[doc].timestamp);
-        info.docs[doc].prettyTime = months[thisTimeStamp.getMonth()] + " " + thisTimeStamp.getDay() + ", " + thisTimeStamp.getFullYear();
+        info.docs[doc].prettyTime = months[thisTimeStamp.getMonth()] + " " + thisTimeStamp.getDate() + ", " + thisTimeStamp.getFullYear();
       }
 
       console.log("------------------");
