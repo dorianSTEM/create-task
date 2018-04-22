@@ -38,7 +38,8 @@ export class CreateEventPage {
           title: creds.title, // the data that will be sent to the server
           msg: creds.description, // field names are shortened to reduce traffic
           session: session,
-          author: username
+          author: username,
+          date: new Date(creds.date)
         }
 
         console.log('DATE: ', creds.date);

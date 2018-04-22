@@ -35,12 +35,6 @@
 
       <img src="https://placeimg.com/600/337/tech"/>
       
-      <ion-fab right top>
-        <button ion-fab>
-          <ion-icon name="pin"></ion-icon>
-        </button>
-      </ion-fab>
-
       <ion-card-content>
         <ion-card-title>
           {{ eventTemplate[i].title }}
@@ -53,7 +47,7 @@
       <ion-row>
         <button ion-button icon-left clear item-center>
           <ion-icon name="time"></ion-icon>
-          April 30th, 2018
+          {{ eventTemplate[i].prettyDate }}
         </button>
       </ion-row>
 

@@ -48,8 +48,11 @@ export class HomePage {
 
       for (var doc in info.docs){
         var thisTimeStamp = new Date(info.docs[doc].timestamp);
+        var thisDate = new Date(info.docs[doc].date);
+
         console.log("TIME:", info.docs[doc].timestamp);
         info.docs[doc].prettyTime = months[thisTimeStamp.getMonth()] + " " + thisTimeStamp.getDate() + ", " + thisTimeStamp.getFullYear();
+        info.docs[doc].prettyDate = months[thisDate.getMonth()] + " " + thisDate.getDate() + ", " + thisDate.getFullYear();
       }
 
       console.log("------------------");
