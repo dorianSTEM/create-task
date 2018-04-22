@@ -40,7 +40,7 @@ exports.triggerCompany = function(company, timestamp){
   timestamp = 0;
   //console.log(JSON.stringify(sockets));
   //console.log("AVAILABLE COMPANIES", sockets[company]);
-  eventModel.getCompanyEvents(company, 0).then(function(obj) {
+  eventModel.getCompanyEvents(company).then(function(obj) {
     if (obj.found){
       //sockets[company][sock].socket.emit('new', {docs:obj.docs, timestamp:timestamp});
       sockets.io.sockets.in(company).emit('new', {docs:obj.docs.reverse(), timestamp:timestamp});
