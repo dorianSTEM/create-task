@@ -14,6 +14,8 @@ import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
 import { LoadingPage } from '../pages/loading/loading';
 import { CreateEventPage } from '../pages/create-event/create-event';
 
+import { ElasticTextArea } from './elastic-text-area';
+
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/', options: {} };
 
@@ -27,7 +29,8 @@ const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/
     CompanyCreatePage,
     PassPage,
     LoadingPage,
-    CreateEventPage
+    CreateEventPage,
+    ElasticTextArea
   ],
   imports: [
     BrowserModule,
