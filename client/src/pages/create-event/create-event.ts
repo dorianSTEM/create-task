@@ -28,14 +28,17 @@ export class CreateEventPage {
       var toastCtrl = this.toastCtrl;
       var viewCtrl = this.viewCtrl;
 
-      this.storage.get('session-id').then((val) => {
-        var session =  val;
+      Promise.all([this.storage.get("session-id"), this.storage.get("username")]).then(values => {
+        var session =  values[0];
+        var username = values[1];
+        
         console.log("After getting it, the session is", session);
 
         let data = {
           title: creds.title, // the data that will be sent to the server
           msg: creds.description, // field names are shortened to reduce traffic
-          session: session
+          session: session,
+          author: username
         }
     
         let loading = loadingCtrl.create({
