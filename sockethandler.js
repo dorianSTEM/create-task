@@ -3,6 +3,7 @@ var compModel = require("./models/companyModel");
 var eventModel = require("./models/eventModel");
 
 var sockets = {};
+var io = function(){};
 //var socketCompanies = {};
 
 exports.connection = function(socket){
@@ -27,6 +28,10 @@ exports.connection = function(socket){
         });
     });
   });
+}
+
+exports.setIO = function(io){
+  io = io;
 }
 
 exports.triggerCompany = function(company, timestamp){
