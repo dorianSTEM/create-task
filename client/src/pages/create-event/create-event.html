@@ -18,6 +18,12 @@
               <ion-item>
                 <ion-textarea elastic id="description" placeholder="Event description..." name="evt-descr" [(ngModel)]="creds.description" required></ion-textarea>
               </ion-item>
+
+              <ion-item>
+                <ion-label>Date</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="creds.date"></ion-datetime>
+              </ion-item>
+
             </ion-list>
           </ion-col>
         </ion-row>
@@ -26,8 +32,7 @@
           <ion-col class="signup-col">
             <button ion-button class="register-btn" block clear (click)="eventCreate()" [disabled]="!registerForm.form.valid">Create Event</button>
           </ion-col>
-        </ion-row>
-    
+        </ion-row>    
       </form>
   </ion-content>
   

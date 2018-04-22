@@ -40,6 +40,8 @@ export class CreateEventPage {
           session: session,
           author: username
         }
+
+        console.log('DATE: ', creds.date);
     
         let loading = loadingCtrl.create({
           content: 'Publishing Event...'
