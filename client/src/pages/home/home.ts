@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { Socket } from 'ng-socket-io';
@@ -17,7 +18,7 @@ export class HomePage {
   timestamp: Number = 0;
   eventTemplate = [];
 
-  constructor(public navCtrl: NavController, public storage: Storage, private socket: Socket, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public storage: Storage, private socket: Socket, public modalCtrl: ModalController, public toastCtrl: ToastController) {
     this.storage.get('username').then((val) => {
       this.username = val;
     });
@@ -69,5 +70,14 @@ export class HomePage {
 
   trackByIndex(index: number, value: number) {
     return index;
+  }
+
+  showMsg(msg){
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    
+    toast.present();
   }
 }

@@ -53,13 +53,13 @@
 
       <ion-row no-padding>
         <ion-col>
-          <button ion-button clear small color="primary" icon-start>
+          <button ion-button clear small color="primary" icon-start (click)="showMsg('Event saved to calendar.')">
             <ion-icon name='calendar'></ion-icon>
             Save
           </button>
         </ion-col>
         <ion-col text-right>
-          <button ion-button clear small color="primary" icon-start>
+          <button ion-button clear small color="primary" icon-start (click)="showMsg('Now attending event.')">
             <ion-icon name='briefcase'></ion-icon>
             Attend
           </button>
@@ -69,6 +69,7 @@
 
     <div class="center-text" *ngIf="eventTemplate.length == 0">
       <p> No events yet. To add an Event, press +</p>
+      <p> WARNING! When you create an event, it will be visible to EVERYONE in the company!</p>
     </div>
 
 
