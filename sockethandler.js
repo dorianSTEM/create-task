@@ -22,7 +22,7 @@ exports.connection = function(socket){
         eventModel.getCompanyEvents(obj.doc.companyID, timestamp).then(function(eventObj) {
           if (obj.found){
             socket.join(obj.doc.companyID);
-            socket.emit('new', {docs:eventObj.docs, timestamp:lastCheck});
+            socket.emit('new', {docs:eventObj.docs, timestamp:0});
           }
         });
     });
