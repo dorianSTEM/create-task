@@ -23,8 +23,16 @@
   </div>-->
 
   <ion-content class="cards-bg">
-   
+  
     <ion-card *ngFor="let evt of eventTemplate; let i = index; trackBy:trackByIndex">
+        <ion-item>
+          <ion-avatar item-start>
+              <ion-icon name="contact"></ion-icon>
+          </ion-avatar>
+          <h2><!--{{ eventTemplate[i].author }}--> Larry The Otter</h2>
+          <p>Posted On {{ eventTemplate[i].prettyTime }}</p>
+        </ion-item>
+
       <img src="https://cdn.vidyard.com/thumbnails/1036178/iNbHh2ST8ksU1SA8kmvlUr-CYSq_eicQ.jpg"/>
       <ion-card-content>
         <ion-card-title>

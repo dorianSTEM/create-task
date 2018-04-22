@@ -15,6 +15,7 @@ export class HomePage {
   username = "person";
   company = "123";
   timestamp: Number = 0;
+  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   eventTemplate = [];
 
@@ -44,6 +45,10 @@ export class HomePage {
       console.log(that.eventTemplate);
 
       that.eventTemplate = info.docs;
+
+      for (var doc in info.docs){
+        info.docs[doc].prettyTime = this.months[info.docs[doc].timestamp.getMonth()] + " " + info.docs[doc].timestamp.getDay() + ", " + info.docs[doc].timestamp.getFullYear();
+      }
 
       console.log("------------------");
     });
