@@ -37,6 +37,7 @@ exports.setIO = function(io){
 
 exports.triggerCompany = function(company, timestamp){
   console.log("COMPANY triggered");
+  timestamp = 0;
   //console.log(JSON.stringify(sockets));
   //console.log("AVAILABLE COMPANIES", sockets[company]);
   eventModel.getCompanyEvents(company, 0).then(function(obj) {
