@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { LoginChoicePage } from '../pages/login-choice/login-choice';
 import { CompanyCreatePage } from '../pages/company-create/company-create';
 import { LoadingPage } from '../pages/loading/loading';
 
@@ -43,11 +44,12 @@ export class MyApp {
 
               this.rootPage = HomePage; 
             } else {
-              this.rootPage = LoginPage;
+              // this.rootPage = LoginPage;
+              this.rootPage = LoginChoicePage;
             }
           });
         } else {
-          this.rootPage = LoginPage;
+          this.rootPage = LoginChoicePage;
         }
       }).then((val) => {
           statusBar.styleDefault();

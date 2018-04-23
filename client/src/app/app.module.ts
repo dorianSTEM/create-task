@@ -9,10 +9,13 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { SignUpPage } from '../pages/signup/signup';
 import { CompanyCreatePage } from '../pages/company-create/company-create';
 import { PassPage } from '../pages/passphrase-modal/passphrase-modal';
 import { LoadingPage } from '../pages/loading/loading';
 import { CreateEventPage } from '../pages/create-event/create-event';
+
+import { LoginChoicePage } from '../pages/login-choice/login-choice';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/', options: {} };
@@ -27,7 +30,9 @@ const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/
     CompanyCreatePage,
     PassPage,
     LoadingPage,
-    CreateEventPage
+    CreateEventPage,
+    LoginChoicePage,
+    SignUpPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +50,9 @@ const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/
     CompanyCreatePage,
     PassPage,
     LoadingPage,
-    CreateEventPage
+    CreateEventPage,
+    LoginChoicePage,
+    SignUpPage
   ],
   providers: [
     StatusBar,
