@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Company Notifier
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+  
+<ion-content padding>
+  <div id="welcome">
+    <img src="../../assets/logo.png" class="center">
+    <h2>Welcome to Company Notifier.</h2>
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button [navPush]="loginPage" >Login</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button  [navPush]="signupPage">Sign Up</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div>
+</ion-content>

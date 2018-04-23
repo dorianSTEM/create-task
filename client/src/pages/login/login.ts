@@ -29,13 +29,12 @@ export class LoginPage {
     let data = {
       usr: this.creds.username, // the data that will be sent to the server
       pwd: this.creds.password, // field names are shortened to reduce traffic
-      cmp: "",
-      pass: ""
     }
 
     let loading = this.loadingCtrl.create({
       content: 'Authenticating...'
     });
+
     loading.present();
 
     this.http.post('http://create-performance.herokuapp.com/login', data).subscribe(response => {
@@ -56,7 +55,7 @@ export class LoginPage {
 
             this.navCtrl.setRoot(HomePage); 
           } else {
-            toastMsg = "Session Error... Please Try Again..";
+            toastMsg = "Error, Please Try Again..";
           }
         });
       } else {
@@ -66,80 +65,10 @@ export class LoginPage {
         message: toastMsg,
         duration: 2000
       });
+      
       loading.dismiss();
       toast.present();
     });
-  }
-  
-  register() {
-    let data = {
-      usr: this.creds.username, // the data that will be sent to the server
-      pwd: this.creds.password, // field names are shortened to reduce traffic
-      // cmp: this.creds.company
-      cmp: "",
-      pass: ""
-    }
-
-    let companyModal = this.modalCtrl.create(PassPage);
-
-    companyModal.onDidDismiss(obj => {
-      // this.userName = data.userName;
-      data.cmp = obj.company,
-      data.pass = obj.passphrase
-
-      if (!data.cmp || !data.pass){ // If no company name or password was provided
-        return 0; //exit out of function
-      }
-
-      let loading = this.loadingCtrl.create({
-        content: 'Creating Account...'
-      });
-      
-      loading.present();
-      
-      this.http.post('http://create-performance.herokuapp.com/signup', data).subscribe(response => {
-        var resBody = JSON.parse(response["_body"]);
-        loading.dismiss();
-        
-        if (!resBody.err) {
-          let toast = this.toastCtrl.create({
-            message: "Successfully Registered!",
-            duration: 2000
-          });
-          
-          toast.present();
-          
-          this.storage.set("session-id", resBody.session);
-          
-          this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
-            var resBody = JSON.parse(response["_body"]);
-            if (!resBody.err){
-              console.log("User Logged In, switching to Home Page");
-  
-              this.storage.set('username', resBody.username);
-              this.storage.set('company', resBody.company);
-  
-              this.navCtrl.setRoot(HomePage); 
-            }
-          });
-          
-          this.navCtrl.setRoot(HomePage);
-        } else {
-          let toast = this.toastCtrl.create({
-            message: resBody.type,
-            duration: 2000
-          });
-  
-          toast.present();
-        }
-      });
-    });
-
-    companyModal.present();
-  }
-  
-  createComp() {
-    this.navCtrl.push(CompanyCreatePage);
   }
 }
 
