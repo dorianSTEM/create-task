@@ -22,7 +22,7 @@ exports.getCompanyEvents = function(companyID){ // timeframe is the date (UNIX t
 exports.createEvent = function(companyID, title, msg, author, date){
     return new Promise(function(resolve){
         var timestamp = new Date();
-        db.insertOne({company:companyID, title:title, msg:msg, timestamp: timestamp, author:author, date:date}, function(err, doc) {
+        db.insertOne({company:companyID, title:title, msg:msg, timestamp: timestamp, author:author, date:date, image:"https://picsum.photos/600/337/?image="+Math.floor(Math.random()*20)}, function(err, doc) {
             if (!err) {
                 socketHandler.triggerCompany(companyID, timestamp);
                 resolve(true);
