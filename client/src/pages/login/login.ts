@@ -38,7 +38,7 @@ export class LoginPage {
     });
     loading.present();
 
-    this.http.post('/login', data).subscribe(response => {
+    this.http.post('http://create-performance.herokuapp.com/login', data).subscribe(response => {
       var resBody = JSON.parse(response["_body"]);
 
       var toastMsg = "";
@@ -46,7 +46,7 @@ export class LoginPage {
         toastMsg = "Successfully Logged In!";
         this.storage.set("session-id", resBody.session);
 
-        this.http.post('/authenticate', {session:resBody.session}).subscribe(response => {
+        this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
           var resBody = JSON.parse(response["_body"]);
           if (!resBody.err){
             console.log("User Logged In, switching to Home Page");
@@ -97,7 +97,7 @@ export class LoginPage {
       
       loading.present();
       
-      this.http.post('/signup', data).subscribe(response => {
+      this.http.post('http://create-performance.herokuapp.com/signup', data).subscribe(response => {
         var resBody = JSON.parse(response["_body"]);
         loading.dismiss();
         
@@ -111,7 +111,7 @@ export class LoginPage {
           
           this.storage.set("session-id", resBody.session);
           
-          this.http.post('/authenticate', {session:resBody.session}).subscribe(response => {
+          this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
             var resBody = JSON.parse(response["_body"]);
             if (!resBody.err){
               console.log("User Logged In, switching to Home Page");
