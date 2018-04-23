@@ -27,7 +27,7 @@ export class CompanyCreatePage {
     let data = {
       //usr: this.creds.username, // the data that will be sent to the server
       name: this.creds.name, // Company name
-      dscr: this.creds.description, // Company Description
+      descr: this.creds.description, // Company Description
       pass: this.creds.passphrase // The passphrase used to join the company
     }
     
@@ -37,7 +37,7 @@ export class CompanyCreatePage {
     
     loading.present();
     
-    this.http.post('/createCompany', data).subscribe(response => {
+    this.http.post('http://create-performance.herokuapp.com/createCompany', data).subscribe(response => {
       var resBody = JSON.parse(response["_body"]);
       loading.dismiss();
       
