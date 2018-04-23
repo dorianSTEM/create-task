@@ -50,7 +50,7 @@ export class CreateEventPage {
   
         loading.present();
     
-        http.post('/createEvent', data).subscribe(response => {
+        http.post('http://create-performance.herokuapp.com/createEvent', data).subscribe(response => {
           var resBody = JSON.parse(response["_body"]);
   
           var toastMsg = "";
