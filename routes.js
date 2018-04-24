@@ -29,8 +29,10 @@ router.get('/', function(req, res, next){ // send Ionic Web App on / route
 
 router.post('/login', function(req, res, next) {
   userModel.findUser(req.body.usr, req.body.pwd).then(function(obj){ // PROMISES!!!!!
-    if (obj.found){ //check if the user was found
-      res.json({loggedIn:true, session:obj.doc.sessionID});
+    if (obj.found && obj.doc.companyID){ //check if the user was found
+      res.json({loggedIn:true, session:obj.doc.sessionID, company:true});
+    } else if (obj.found) {
+      res.json({loggedIn:true, session:obj.doc.sessionID, company:false});
     } else {
       res.json({loggedIn:false});
     }
@@ -45,27 +47,35 @@ router.post('/signup', function(req, res, next) {
     } else if (req.body.pwd.length < 8) { // check if the password is not long enough
       res.json({err:1, type:"Password is shorter than 8 characters!"});
     } else { // otherwise the username is good/unique and the password is long enough
-      
-      compModel.companyAuth(req.body.cmp, req.body.pass).then(function(obj){ // try to find the company the user said he was part of
-        if (obj.found){ // if the company was found, we're good
-          var sessionID = helper.makeid(16);
-          //var sessionExpiration = new Date.now() + 24*60*60*1000; // set the session expiration to 1 day from now (24 hours)
-                                                // HH,MM,SS,MS
-          
-          // Session expiration has been removed (maybe if I have more time...)
-          console.log("COMPANY DOC: ", obj.doc);
-          
-          userModel.createUser(req.body.usr, req.body.pwd, obj.doc._id, sessionID).then(function(success){ // create user using username, password, and the company _id
-            if (success){ // success, the user was created!!
-              res.json({err:0, session:sessionID});
-            } else {
-              res.json({err:1, type:"Unknown Error, Try Again Later..."});
-            }
-          }); 
-        } else { // If the company does not exist, the user cannot join it
-          res.json({err:2, type:"Invalid Company Details!"});
+      // var sessionID = helper.makeid(16);
+      userModel.createUser(req.body.usr, req.body.pwd).then(function(success){ // create user using username, password, and the company _id
+        if (success){ // success, the user was created!!
+          res.json({err:0});
+        } else {
+          res.json({err:1, type:"Unknown Error, Try Again Later..."});
         }
-      });
+      }); 
+      
+      // compModel.companyAuth(req.body.cmp, req.body.pass).then(function(obj){ // try to find the company the user said he was part of
+      //   if (obj.found){ // if the company was found, we're good
+      //     var sessionID = helper.makeid(16);
+      //     //var sessionExpiration = new Date.now() + 24*60*60*1000; // set the session expiration to 1 day from now (24 hours)
+      //                                           // HH,MM,SS,MS
+          
+      //     // Session expiration has been removed (maybe if I have more time...)
+      //     console.log("COMPANY DOC: ", obj.doc);
+          
+      //     userModel.createUser(req.body.usr, req.body.pwd, obj.doc._id, sessionID).then(function(success){ // create user using username, password, and the company _id
+      //       if (success){ // success, the user was created!!
+      //         res.json({err:0, session:sessionID});
+      //       } else {
+      //         res.json({err:1, type:"Unknown Error, Try Again Later..."});
+      //       }
+      //     }); 
+      //   } else { // If the company does not exist, the user cannot join it
+      //     res.json({err:2, type:"Invalid Company Details!"});
+      //   }
+      // });
     }
   });
 });
@@ -84,6 +94,10 @@ router.post('/createCompany', function(req, res, next){
       res.json({err:1, type:"Company Name Already Exists..."});
     }
   });
+});
+
+router.post('/joinCompany', function(req, res, next){ 
+
 });
 
 router.post('/authenticate', function(req, res, next){ // authenticate with user ID, send user and company details back
