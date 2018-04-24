@@ -10,6 +10,8 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { CompanyCreatePage } from '../company-create/company-create';
 import { PassPage } from '../passphrase-modal/passphrase-modal';
+import { CompanyChoicePage } from '../company-choice/company-choice';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -41,23 +43,26 @@ export class LoginPage {
       var resBody = JSON.parse(response["_body"]);
 
       var toastMsg = "";
-      if (resBody.loggedIn){
+            
+      if (resBody.loggedIn && resBody.company) {
         toastMsg = "Successfully Logged In!";
         this.storage.set("session-id", resBody.session);
 
         this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
           var resBody = JSON.parse(response["_body"]);
           if (!resBody.err){
-            console.log("User Logged In, switching to Home Page");
+            console.log("User Logged In, switching to Next Page");
 
             this.storage.set('username', resBody.username);
             this.storage.set('company', resBody.company);
-
             this.navCtrl.setRoot(HomePage); 
+            
           } else {
             toastMsg = "Error, Please Try Again..";
           }
         });
+      } else if (resBody.loggedIn && !resBody.company) {
+        this.navCtrl.setRoot(CompanyChoicePage);
       } else {
         toastMsg = "Invalid Credentials"
       }
@@ -65,7 +70,7 @@ export class LoginPage {
         message: toastMsg,
         duration: 2000
       });
-      
+
       loading.dismiss();
       toast.present();
     });

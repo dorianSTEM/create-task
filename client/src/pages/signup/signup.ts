@@ -10,6 +10,8 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { CompanyCreatePage } from '../company-create/company-create';
 import { PassPage } from '../passphrase-modal/passphrase-modal';
+import { CompanyChoicePage } from '../company-choice/company-choice';
+
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
@@ -58,27 +60,28 @@ export class SignUpPage {
     
     if (!resBody.err) {
       let toast = this.toastCtrl.create({
-      message: "Successfully Registered!",
-      duration: 2000
+        message: "Successfully Registered!",
+        duration: 2000
       });
       
       toast.present();
       
-      this.storage.set("session-id", resBody.session);
+      // this.storage.set("session-id", resBody.session);
       
-      this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
-        var resBody = JSON.parse(response["_body"]);
-        if (!resBody.err){
-          console.log("User Logged In, switching to Home Page");
+      // this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
+      //   var resBody = JSON.parse(response["_body"]);
+      //   if (!resBody.err){
+      //     console.log("User Logged In, switching to Home Page");
 
-          this.storage.set('username', resBody.username);
-          this.storage.set('company', resBody.company);
+      //     this.storage.set('username', resBody.username);
+      //     this.storage.set('company', resBody.company);
 
-          this.navCtrl.setRoot(HomePage); 
-        }
-      });
+      //     this.navCtrl.setRoot(HomePage); 
+      //   }
+      // });
+
         
-        this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(CompanyChoicePage);
     } else {
         let toast = this.toastCtrl.create({
         message: resBody.type,
