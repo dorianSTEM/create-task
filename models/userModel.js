@@ -30,9 +30,9 @@ exports.findUserByUsername = function(username){ // Find User by username (to ma
   });
 }
 
-exports.createUser = function(username, password, company, sessionID){
+exports.createUser = function(username, password){
   return new Promise(function(resolve){
-    db.insertOne({username:username, password:password, verified:false, companyID:company, sessionID:sessionID}, function(err, doc) {
+    db.insertOne({username:username, password:password}, function(err, doc) {
         if (!err) {
             resolve(true);
         } else {
