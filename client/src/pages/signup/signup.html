@@ -7,41 +7,46 @@
 </ion-header>
 
 <ion-content padding>
-  <form #registerForm="ngForm">
-    <ion-row>
-      <ion-col>
-        <ion-list inset>
+  <ion-card padding>
+    <ion-card-header>
+      Create An Account
+    </ion-card-header>
+    <form #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
 
-        <ion-item>
-          <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="creds.username" required></ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="creds.username" required></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="creds.password" required></ion-input>
-        </ion-item>
-        
-        <!--
-        <ion-item>
-            <ion-input type="text" placeholder="Company Name" name="company" [(ngModel)]="creds.company" required></ion-input>
-        </ion-item>-->
+          <ion-item>
+            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="creds.password" required></ion-input>
+          </ion-item>
+          
+          <!--
+          <ion-item>
+              <ion-input type="text" placeholder="Company Name" name="company" [(ngModel)]="creds.company" required></ion-input>
+          </ion-item>-->
 
-        <!-- <ion-item text-wrap> -->
-            <!-- <ion-label>No Company yet? Please click Create New Company below. (You MUST create a company before signing up)</ion-label> -->
-        <!-- </ion-item> -->
+          <!-- <ion-item text-wrap> -->
+              <!-- <ion-label>No Company yet? Please click Create New Company below. (You MUST create a company before signing up)</ion-label> -->
+          <!-- </ion-item> -->
 
-        </ion-list>
-      </ion-col>
-    </ion-row>
+          </ion-list>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col class="signup-col">
-        <!-- <button ion-button class="submit-btn" full type="submit" (click)="login()" [disabled]="!registerForm.form.valid">Login</button> -->
-        
-        <button ion-button full class="register-btn" (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button>
-        <!-- <button ion-button class="register-btn" block clear (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button> -->
+      <ion-row>
+        <ion-col class="signup-col">
+          <!-- <button ion-button class="submit-btn" full type="submit" (click)="login()" [disabled]="!registerForm.form.valid">Login</button> -->
+          
+          <button ion-button full class="register-btn" (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button>
+          <!-- <button ion-button class="register-btn" block clear (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button> -->
 
-        <!-- <button ion-button class="register-btn" block clear (click)="createComp()">Create New Company</button> -->
-      </ion-col>
-    </ion-row>
-  </form>
+          <!-- <button ion-button class="register-btn" block clear (click)="createComp()">Create New Company</button> -->
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-card>
 </ion-content>
