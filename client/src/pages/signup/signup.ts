@@ -55,41 +55,45 @@ export class SignUpPage {
     loading.present();
     
     this.http.post('http://create-performance.herokuapp.com/signup', data).subscribe(response => {
-    var resBody = JSON.parse(response["_body"]);
-    loading.dismiss();
-    
-    if (!resBody.err) {
-      let toast = this.toastCtrl.create({
-        message: "Successfully Registered!",
-        duration: 2000
-      });
-      
-      toast.present();
-      
-      // this.storage.set("session-id", resBody.session);
-      
-      // this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
-      //   var resBody = JSON.parse(response["_body"]);
-      //   if (!resBody.err){
-      //     console.log("User Logged In, switching to Home Page");
+      var resBody = JSON.parse(response["_body"]);
+      loading.dismiss();
 
-      //     this.storage.set('username', resBody.username);
-      //     this.storage.set('company', resBody.company);
-
-      //     this.navCtrl.setRoot(HomePage); 
-      //   }
-      // });
-
-        
-      this.navCtrl.setRoot(CompanyChoicePage);
-    } else {
+      console.log("signed up");
+      console.log(resBody);
+      
+      if (!resBody.err) {
         let toast = this.toastCtrl.create({
-        message: resBody.type,
-        duration: 2000
+          message: "Successfully Registered!",
+          duration: 2000
         });
-
+        
         toast.present();
-    }
+        
+        this.storage.set("session-id", resBody.session);
+        this.storage.set("company", false);
+        
+        // this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
+        //   var resBody = JSON.parse(response["_body"]);
+        //   if (!resBody.err){
+        //     console.log("User Logged In, switching to Home Page");
+
+        //     this.storage.set('username', resBody.username);
+        //     this.storage.set('company', resBody.company);
+
+        //     this.navCtrl.setRoot(HomePage); 
+        //   }
+        // });
+
+          
+        this.navCtrl.setRoot(CompanyChoicePage);
+      } else {
+          let toast = this.toastCtrl.create({
+            message: resBody.type,
+            duration: 2000
+          });
+
+          toast.present();
+      }
     });
     // });
 
