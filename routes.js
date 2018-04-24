@@ -30,9 +30,9 @@ router.get('/', function(req, res, next){ // send Ionic Web App on / route
 router.post('/login', function(req, res, next) {
   userModel.findUser(req.body.usr, req.body.pwd).then(function(obj){ // PROMISES!!!!!
     if (obj.found && obj.doc.companyID){ //check if the user was found
-      res.json({loggedIn:true, session:obj.doc.sessionID, company:true});
+      res.json({loggedIn:true, session:obj.doc.sessionID, company:true, verified:obj.doc.verified});
     } else if (obj.found) {
-      res.json({loggedIn:true, session:obj.doc.sessionID, company:false});
+      res.json({loggedIn:true, session:obj.doc.sessionID, company:false, verified:false});
     } else {
       res.json({loggedIn:false});
     }
@@ -47,10 +47,10 @@ router.post('/signup', function(req, res, next) {
     } else if (req.body.pwd.length < 8) { // check if the password is not long enough
       res.json({err:1, type:"Password is shorter than 8 characters!"});
     } else { // otherwise the username is good/unique and the password is long enough
-      // var sessionID = helper.makeid(16);
-      userModel.createUser(req.body.usr, req.body.pwd).then(function(success){ // create user using username, password, and the company _id
+      var sessionID = helper.makeid(16);
+      userModel.createUser(req.body.usr, req.body.pwd, sessionID).then(function(success){ // create user using username, password, and the company _id
         if (success){ // success, the user was created!!
-          res.json({err:0});
+          res.json({err:1, company:false});
         } else {
           res.json({err:1, type:"Unknown Error, Try Again Later..."});
         }
@@ -96,8 +96,34 @@ router.post('/createCompany', function(req, res, next){
   });
 });
 
-router.post('/joinCompany', function(req, res, next){ 
+router.post('/joinCompany', function(req, res, next){
+  userModel.getUserBySession(req.body.session).then(function(obj){
 
+    compModel.findCompanyByName(req.body.name).then(function(compObj){
+      if (obj.found){
+        userModel.joinCompany(obj.doc.username, compObj.doc.name);
+        res.json({err:0});
+      } else {
+        res.json({err:1, type:"Company Not Found"});
+      }
+    });
+  });
+});
+
+router.post('/approveUser', function(req, res, next){
+  userModel.getUserBySession(req.body.session).then(function(obj){
+    userModel.findUserByUsername(req.body.username).then(function(guestObj){
+      if (obj.found && guestObj.found && obj.doc.admin && obj.doc.companyID == guestObj.companyID){
+        userModel.approveUser(req.body.username);
+        res.json({err:0});
+      } else {
+        res.json({err:1, type:"Not Allowed"});
+      }
+    });
+    
+    if (obj.found){ // if we found the user by his session, send the OK (and user info)      
+      eventModel.createEvent(obj.doc.companyID);
+    }
 });
 
 router.post('/authenticate', function(req, res, next){ // authenticate with user ID, send user and company details back
