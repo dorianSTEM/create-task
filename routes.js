@@ -50,7 +50,7 @@ router.post('/signup', function(req, res, next) {
       var sessionID = helper.makeid(16);
       userModel.createUser(req.body.usr, req.body.pwd, sessionID).then(function(success){ // create user using username, password, and the company _id
         if (success){ // success, the user was created!!
-          res.json({err:0, company:false, session:sessioniD});
+          res.json({err:0, company:false, session:sessionID});
         } else {
           res.json({err:1, type:"Unknown Error, Try Again Later..."});
         }
