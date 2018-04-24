@@ -8,12 +8,12 @@
   
 <ion-content padding>
   <div id="welcome">
-    <img src="../../assets/logo.png" class="center" id="logo-img">
-    <h2>Time to Join A Company.</h2>
+    <img src="../../assets/company.png" class="center" id="logo-img">
+    <h2>Join a Company</h2>
     <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button full>Join a Company</button>
+            <button ion-button full [navPush]="joinCompanyPage">Join a Company</button>
           </ion-col>
           <ion-col>
             <button ion-button full clear>Create a Company</button>
