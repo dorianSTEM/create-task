@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Join Company
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+      
+<ion-content padding>
+  <ion-card padding>
+    <ion-card-header>
+      Enter Company Name
+    </ion-card-header>
+    <form #registerForm="ngForm">
+      <p>Ask Your Company Admin For the Name.</p>
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="" placeholder="Company Name" name="name" [(ngModel)]="creds.name" required id="number-box"></ion-input>
+            </ion-item>
+            
+            <!--
+            <ion-item>
+              <ion-input type="text" placeholder="Company Name" name="company" [(ngModel)]="creds.company" required></ion-input>
+            </ion-item>-->
+
+            <!-- <ion-item text-wrap> -->
+              <!-- <ion-label>No Company yet? Please click Create New Company below. (You MUST create a company before signing up)</ion-label> -->
+            <!-- </ion-item> -->
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" (click)="joinComp()" [disabled]="!registerForm.form.valid">Join Company</button>
+          
+          <!-- <button ion-button class="register-btn" block clear (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button> -->
+          <!-- <button ion-button class="register-btn" block clear (click)="createComp()">Create New Company</button> -->
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </ion-card>
+</ion-content>
