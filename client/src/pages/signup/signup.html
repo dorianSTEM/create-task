@@ -1,23 +1,23 @@
 <ion-header>
-<ion-navbar>
+  <ion-navbar>
     <ion-title>
-    Sign Up
+      Sign Up
     </ion-title>
-</ion-navbar>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<form #registerForm="ngForm">
+  <form #registerForm="ngForm">
     <ion-row>
-    <ion-col>
+      <ion-col>
         <ion-list inset>
 
         <ion-item>
-            <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="creds.username" required></ion-input>
+          <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="creds.username" required></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="creds.password" required></ion-input>
+          <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="creds.password" required></ion-input>
         </ion-item>
         
         <!--
@@ -30,19 +30,18 @@
         <!-- </ion-item> -->
 
         </ion-list>
-    </ion-col>
+      </ion-col>
     </ion-row>
 
     <ion-row>
-    <ion-col class="signup-col">
+      <ion-col class="signup-col">
         <!-- <button ion-button class="submit-btn" full type="submit" (click)="login()" [disabled]="!registerForm.form.valid">Login</button> -->
         
-        <button ion-button class="register-btn" (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button>
+        <button ion-button full class="register-btn" (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button>
         <!-- <button ion-button class="register-btn" block clear (click)="register()" [disabled]="!registerForm.form.valid">Create New Account</button> -->
 
         <!-- <button ion-button class="register-btn" block clear (click)="createComp()">Create New Company</button> -->
-    </ion-col>
+      </ion-col>
     </ion-row>
-
-</form>
+  </form>
 </ion-content>
