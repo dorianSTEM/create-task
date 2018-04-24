@@ -17,6 +17,8 @@ import { CreateEventPage } from '../pages/create-event/create-event';
 
 import { LoginChoicePage } from '../pages/login-choice/login-choice';
 import { CompanyChoicePage } from '../pages/company-choice/company-choice';
+import { JoinCompanyPage } from '../pages/join-company/join-company';
+import { VerificationPage } from '../pages/company-verification/company-verification';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/', options: {} };
@@ -34,7 +36,9 @@ const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/
     CreateEventPage,
     LoginChoicePage,
     SignUpPage,
-    CompanyChoicePage
+    CompanyChoicePage,
+    JoinCompanyPage,
+    VerificationPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ const config: SocketIoConfig = { url: 'https://create-performance.herokuapp.com/
     CreateEventPage,
     LoginChoicePage,
     SignUpPage,
-    CompanyChoicePage
+    CompanyChoicePage,
+    JoinCompanyPage,
+    VerificationPage
   ],
   providers: [
     StatusBar,
