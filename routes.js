@@ -124,6 +124,7 @@ router.post('/approveUser', function(req, res, next){
     if (obj.found){ // if we found the user by his session, send the OK (and user info)      
       eventModel.createEvent(obj.doc.companyID);
     }
+  });
 });
 
 router.post('/authenticate', function(req, res, next){ // authenticate with user ID, send user and company details back
