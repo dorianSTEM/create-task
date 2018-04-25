@@ -71,8 +71,10 @@ exports.joinCompany = function(username, companyID){
     db.update({username:username}, {$set:{companyID:companyID}}).then(function(err) {
       if (!err){
         resolve(true);
+        console.log("Join company resolved with no errors");
       } else {
         resolve(false);
+        console.log("Join company resolved with errors.");
       }
     });
   });
