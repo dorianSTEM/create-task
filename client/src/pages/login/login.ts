@@ -10,7 +10,8 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { CompanyCreatePage } from '../company-create/company-create';
 import { PassPage } from '../passphrase-modal/passphrase-modal';
-import { CompanyVerificationPage } from '../company-verification/company-verification';
+import { VerificationPage } from '../company-verification/company-verification';
+import { CompanyChoicePage } from '../company-choice/company-choice';
 
 @Component({
   selector: 'page-login',
@@ -73,7 +74,7 @@ export class LoginPage {
         this.storage.set("session-id", resBody.session);
         this.storage.set("company-joined", true);
         this.storage.set("company-verified", false);
-        this.navCtrl.setRoot(CompanyChoicePage); //show company verification page
+        this.navCtrl.setRoot(VerificationPage); //show company verification page
       } else {
         toastMsg = "Invalid Credentials"
       }
