@@ -62,6 +62,7 @@ export class SignUpPage {
       console.log(resBody);
       
       if (!resBody.err) {
+        console.log("no err, continuing to make toas.");
         let toast = this.toastCtrl.create({
           message: "Successfully Registered!",
           duration: 2000
