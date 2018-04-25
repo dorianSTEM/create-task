@@ -102,7 +102,10 @@ router.post('/joinCompany', function(req, res, next){
     console.log("REQ BODY", req.body);
     console.log("USER OBJ", obj);
     compModel.findCompanyByName(req.body.name).then(function(compObj){
-      if (obj.found){
+      if (obj.found && compObj.found){
+        console.log("<<<<<<<< ALL FOUND >>>>>>>>");
+        console.log(obj.doc.username);
+        console.log(compObj.doc.name);
         userModel.joinCompany(obj.doc.username, compObj.doc.name);
         res.json({err:0});
       } else {
