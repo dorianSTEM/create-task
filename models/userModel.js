@@ -75,6 +75,7 @@ exports.joinCompany = function(username, companyID){
       } else {
         resolve(false);
         console.log("Join company resolved with errors.");
+        console.log(err);
       }
     });
   });
