@@ -98,7 +98,9 @@ router.post('/createCompany', function(req, res, next){
 
 router.post('/joinCompany', function(req, res, next){
   userModel.getUserBySession(req.body.session).then(function(obj){
-
+    console.log("Entered Company join.")
+    console.log("REQ BODY", req.body);
+    console.log("USER OBJ", obj);
     compModel.findCompanyByName(req.body.name).then(function(compObj){
       if (obj.found){
         userModel.joinCompany(obj.doc.username, compObj.doc.name);
