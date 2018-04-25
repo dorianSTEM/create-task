@@ -106,7 +106,7 @@ router.post('/joinCompany', function(req, res, next){
         console.log("<<<<<<<< ALL FOUND >>>>>>>>");
         console.log(obj.doc.username);
         console.log(compObj.doc.name);
-        userModel.joinCompany(obj.doc.username, compObj.doc.name);
+        userModel.joinCompany(obj.doc.username, compObj.doc._id);
         res.json({err:0});
       } else {
         res.json({err:1, type:"Company Not Found"});
