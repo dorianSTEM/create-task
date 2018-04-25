@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { CompanyCreatePage } from '../company-create/company-create';
 import { PassPage } from '../passphrase-modal/passphrase-modal';
-import { CompanyChoicePage } from '../company-choice/company-choice';
+import { CompanyVerificationPage } from '../company-verification/company-verification';
 
 @Component({
   selector: 'page-login',
@@ -44,9 +44,12 @@ export class LoginPage {
 
       var toastMsg = "";
             
-      if (resBody.loggedIn && resBody.company) {
+      if (resBody.loggedIn && resBody.company && resBody.verified) {
         toastMsg = "Successfully Logged In!";
         this.storage.set("session-id", resBody.session);
+
+        this.storage.set("company-joined", false);
+        this.storage.set("company-verified", false);
 
         this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
           var resBody = JSON.parse(response["_body"]);
@@ -62,7 +65,15 @@ export class LoginPage {
           }
         });
       } else if (resBody.loggedIn && !resBody.company) {
+        this.storage.set("session-id", resBody.session);
+        this.storage.set("company-joined", false);
+        this.storage.set("company-verified", false);
         this.navCtrl.setRoot(CompanyChoicePage);
+      } else if (!resBody.verified) {
+        this.storage.set("session-id", resBody.session);
+        this.storage.set("company-joined", true);
+        this.storage.set("company-verified", false);
+        this.navCtrl.setRoot(CompanyChoicePage); //show company verification page
       } else {
         toastMsg = "Invalid Credentials"
       }
