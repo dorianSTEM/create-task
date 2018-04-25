@@ -30,9 +30,9 @@ exports.findUserByUsername = function(username){ // Find User by username (to ma
   });
 }
 
-exports.createUser = function(username, password){
+exports.createUser = function(username, password, sessionID){
   return new Promise(function(resolve){
-    db.insertOne({username:username, password:password}, function(err, doc) {
+    db.insertOne({username:username, password:password, sessionID:sessionID, verified:false}, function(err, doc) {
         if (!err) {
             resolve(true);
         } else {
@@ -44,7 +44,7 @@ exports.createUser = function(username, password){
 
 exports.getUserBySession = function(sessionID){
   return new Promise(function(resolve){
-    db.findOne({sessionID:sessionID}).then(function(doc) {
+    db.findOne({sessionID:sessionID}).then(function(doc){
       if (doc){
         resolve({found:true, doc:doc});
       } else {
@@ -54,9 +54,33 @@ exports.getUserBySession = function(sessionID){
   });
 }
 
+exports.makeAdmin = function(username){
+  return new Promise(function(resolve){
+    db.update({username:username}, {$set:{admin:true}}).then(function(err) {
+      if (!err){
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
+exports.joinCompany = function(username, companyID){
+  return new Promise(function(resolve){
+    db.update({username:username}, {$set:{companyID:companyID}}).then(function(err) {
+      if (!err){
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
 exports.approveUser = function(username){
   return new Promise(function(resolve){
-    db.update({username:username}, {$set:{verified:true}}).then(function(err) {
+    db.update({username:username}, {$set:{verified:true, admin:false}}).then(function(err) {
       if (!err){
         resolve(true);
       } else {
