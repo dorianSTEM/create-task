@@ -82,6 +82,9 @@ router.post('/signup', function(req, res, next) {
 
 router.post('/createCompany', function(req, res, next){
   console.log("Creating Company");
+  console.log("BODY:", req.body);
+  console.log("Session: ", req.body.session);
+
   compModel.findCompanyByName(req.body.name).then(function(obj){
     if (!obj.found){
       compModel.createCompany(req.body.name, req.body.descr).then(function(obj){
