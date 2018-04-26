@@ -35,7 +35,7 @@ exports.createCompany = function(name, description){
   return new Promise(function(resolve){
     db.insertOne({name:name, description:description, timestamp:new Date().getTime()}, function(err, doc) { // timestamp describes when company data was last updated
         if (!err) {
-            resolve({success:true, doc:doc});
+            resolve({success:true, doc:doc.ops[0]});
         } else {
             resolve({success:false});
         }
