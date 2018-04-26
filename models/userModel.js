@@ -54,6 +54,18 @@ exports.getUserBySession = function(sessionID){
   });
 }
 
+exports.findJoinedUsers = function(companyID){ //function to check for people who want to join company but have not been approved
+  return new Promise(function(resolve){
+    db.find({verified:false, companyID:companyID}).toArray(function(err, docs) {
+      if (docs.length){
+        resolve({found:true, docs:docs});
+      } else {
+        resolve({found:false});
+      }
+    });
+  });
+}
+
 exports.makeAdmin = function(username){
   return new Promise(function(resolve){
     db.update({username:username}, {$set:{admin:true}}).then(function(err) {
