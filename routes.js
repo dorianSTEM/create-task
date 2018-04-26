@@ -91,7 +91,7 @@ router.post('/createCompany', function(req, res, next){
         if (obj.success){
           console.log("looking for session");
           userModel.getUserBySession(req.body.session).then(function(usrObj){
-            if (obj.found){
+            if (usrObj.found){
               console.log("session found");
               userModel.joinCompany(usrObj.doc.username, obj.doc._id).then(function(){
                 userModel.approveUser(usrObj.doc.username).then(function(){
