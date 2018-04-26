@@ -25,8 +25,19 @@ exports.connection = function(socket){
             socket.join(obj.doc.companyID);
             socket.emit('new', {docs:eventObj.docs, timestamp:0});
           }
+        }).then(function(){
+          userModel.findJoinedUsers(obj.doc.companyID).then(function(obj){
+            if (obj.found){
+              console.log("---------FOUND USERS THAT WANT TO JOIN THE COMPANY--------");
+              socket.emit('joiner', {docs:obj.docs});
+            }
+          });
         });
-    });
+    })
+  });
+
+  socket.on("accept", function(obj){
+    userModel.approveUser(obj.username);
   });
 }
 
