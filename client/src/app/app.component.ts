@@ -59,6 +59,8 @@ export class MyApp {
               this.rootPage = JoinCompanyPage;
             } else {
               // this.rootPage = LoginPage;
+              console.log("ERROR");
+              console.log(resBody);
               this.rootPage = LoginChoicePage;
             }
           });
