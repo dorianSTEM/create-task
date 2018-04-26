@@ -56,6 +56,7 @@ export class MyApp {
             } else if (!resBody.err && resBody.obj.companyID) {
               this.rootPage = VerificationPage;
             } else if (!resBody.err){
+              console.log(resBody);
               this.rootPage = JoinCompanyPage;
             } else {
               // this.rootPage = LoginPage;
