@@ -12,6 +12,7 @@ var compModel = require("./models/companyModel");
 var eventModel = require("./models/eventModel");
 
 var helper = require("./helper");
+var socketHandler = require("./sockethandler");
 
 router.use(express.static(__dirname + "/client/www"));
 
@@ -127,6 +128,8 @@ router.post('/joinCompany', function(req, res, next){
         console.log(obj.doc.username);
         console.log(compObj.doc.name);
         userModel.joinCompany(obj.doc.username, compObj.doc._id);
+
+        socketHandler.triggerJoinedUsers(compObj.doc._id);
         res.json({err:0});
       } else {
         res.json({err:1, type:"Company Not Found"});

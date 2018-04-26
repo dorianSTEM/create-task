@@ -58,3 +58,13 @@ exports.triggerCompany = function(company, timestamp){
     }
   });
 }
+
+exports.triggerJoinedUsers = function(company){
+  console.log("~~~~TRIGGERED!!~~~~~")
+  userModel.findJoinedUsers(company).then(function(obj){
+    if (obj.found){
+      console.log("---------FOUND USERS THAT WANT TO JOIN THE COMPANY--------");
+      sockets.io.sockets.in(company).emit('joiner', {docs:obj.docs});
+    }
+  });
+}
