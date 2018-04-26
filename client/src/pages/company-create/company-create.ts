@@ -25,43 +25,53 @@ export class CompanyCreatePage {
   }
   
   createComp() {
-    let data = {
-      //usr: this.creds.username, // the data that will be sent to the server
-      name: this.creds.name, // Company name
-      descr: this.creds.description, // Company Description
-      // pass: this.creds.passphrase // The passphrase used to join the company
-    }
-    
-    let loading = this.loadingCtrl.create({
-      content: 'Creating Company...'
-    });
-    
-    loading.present();
-    
-    this.http.post('http://create-performance.herokuapp.com/createCompany', data).subscribe(response => {
-      var resBody = JSON.parse(response["_body"]);
-      loading.dismiss();
-      
-      if (!resBody.err) {
-        let toast = this.toastCtrl.create({
-          message: "Successfully Created Company!",
-          duration: 2000
-        });
-        
-        toast.present();
-        this.storage.set("company-joined", true);
-        this.storage.set("company-verified", true);
-  
-        // this.navCtrl.pop(); // Remove this page from nav stack
-        this.navCtrl.setRoot(HomePage);
-      } else {
-        let toast = this.toastCtrl.create({
-          message: resBody.type,
-          duration: 2000
-        });
+    var creds = this.creds;
+    var loadingCtrl = this.loadingCtrl;
+    var http = this.http;
+    var toastCtrl = this.toastCtrl;
+    var storage = this.storage;
+    var navCtrl = this.navCtrl;
 
-        toast.present();
+    this.storage.get('session-id').then((val) => {
+      let data = {
+        //usr: this.creds.username, // the data that will be sent to the server
+        name: creds.name, // Company name
+        descr: creds.description, // Company Description
+        // pass: this.creds.passphrase // The passphrase used to join the company
+        session:val
       }
+      
+      let loading = loadingCtrl.create({
+        content: 'Creating Company...'
+      });
+      
+      loading.present();
+      
+      http.post('http://create-performance.herokuapp.com/createCompany', data).subscribe(response => {
+        var resBody = JSON.parse(response["_body"]);
+        loading.dismiss();
+        
+        if (!resBody.err) {
+          let toast = toastCtrl.create({
+            message: "Successfully Created Company!",
+            duration: 2000
+          });
+          
+          toast.present();
+          storage.set("company-joined", true);
+          storage.set("company-verified", true);
+    
+          // this.navCtrl.pop(); // Remove this page from nav stack
+          navCtrl.setRoot(HomePage);
+        } else {
+          let toast = toastCtrl.create({
+            message: resBody.type,
+            duration: 2000
+          });
+
+          toast.present();
+        }
+      });
     });
   }
 }
