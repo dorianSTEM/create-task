@@ -62,7 +62,7 @@ export class SignUpPage {
       console.log(resBody);
       
       if (!resBody.err) {
-        console.log("no err, continuing to make toas.");
+        console.log("no err, continuing to make toast.");
         let toast = this.toastCtrl.create({
           message: "Successfully Registered!",
           duration: 2000
@@ -71,7 +71,8 @@ export class SignUpPage {
         toast.present();
         
         this.storage.set("session-id", resBody.session);
-        this.storage.set("company", false);
+        this.storage.set("company-joined", false);
+        this.storage.set("company-verified", false);
         
         // this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
         //   var resBody = JSON.parse(response["_body"]);

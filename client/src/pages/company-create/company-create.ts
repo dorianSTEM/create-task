@@ -6,6 +6,7 @@ import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-company-create',
@@ -28,7 +29,7 @@ export class CompanyCreatePage {
       //usr: this.creds.username, // the data that will be sent to the server
       name: this.creds.name, // Company name
       descr: this.creds.description, // Company Description
-      pass: this.creds.passphrase // The passphrase used to join the company
+      // pass: this.creds.passphrase // The passphrase used to join the company
     }
     
     let loading = this.loadingCtrl.create({
@@ -48,8 +49,11 @@ export class CompanyCreatePage {
         });
         
         toast.present();
+        this.storage.set("company-joined", true);
+        this.storage.set("company-verified", true);
   
-        this.navCtrl.pop(); // Remove this page from nav stack
+        // this.navCtrl.pop(); // Remove this page from nav stack
+        this.navCtrl.setRoot(HomePage);
       } else {
         let toast = this.toastCtrl.create({
           message: resBody.type,

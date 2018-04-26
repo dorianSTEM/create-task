@@ -11,6 +11,7 @@ import { NavController } from 'ionic-angular';
 // import { SignUpPage } from '../signup/signup';
 
 import { JoinCompanyPage } from '../join-company/join-company';
+import { CompanyCreatePage } from '../company-create/company-create';
 
 @Component({
   selector: 'page-choice-company',
@@ -21,6 +22,7 @@ export class CompanyChoicePage {
 //   loginPage = LoginPage;
 //   signupPage = SignUpPage;
   joinCompanyPage = JoinCompanyPage;
+  createCompanyPage = CompanyCreatePage;
 
   constructor(
     public navCtrl: NavController,
