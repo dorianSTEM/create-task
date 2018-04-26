@@ -83,9 +83,20 @@ router.post('/signup', function(req, res, next) {
 router.post('/createCompany', function(req, res, next){
   compModel.findCompanyByName(req.body.name).then(function(obj){
     if (!obj.found){
-      compModel.createCompany(req.body.name, req.body.pass, req.body.descr).then(function(success){
-        if (success){
-          res.json({err:0});
+      compModel.createCompany(req.body.name, req.body.descr).then(function(obj){
+        if (obj.success){
+          userModel.getUserBySession(req.session).then(function(usrObj){
+            if (obj.found){
+              userModel.joinCompany(usrObj.doc.username, obj.doc._id).then(function(){
+                userModel.approveUser(usrObj.doc.username).then(function(){
+                  res.json({err:0});
+                });
+              });
+            } else {
+              res.json({err:1});
+            }
+            
+          });
         } else {
           res.json({err:1, type:"Unknown Error, Try Again Later..."});
         }
