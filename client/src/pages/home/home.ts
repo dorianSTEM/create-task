@@ -8,6 +8,7 @@ import { Socket } from 'ng-socket-io';
 
 import { CreateEventPage } from "../create-event/create-event"
 
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -57,6 +58,17 @@ export class HomePage {
       }
 
       console.log("------------------");
+    });
+
+    this.socket.on('joiner', function(info){
+      console.log("We got a joiner");
+      console.log(info);
+      for (var doc in info.docs){
+        var confirmResult = confirm(info.docs[doc].username + " wants to join the company. Is this OK?");
+        if (confirmResult){
+          this.socket.emit('accept', {username:info.docs[doc].username});
+        } 
+      }
     });
 
     //this.data.username = username;
