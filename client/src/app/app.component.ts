@@ -45,7 +45,7 @@ export class MyApp {
         if (val){
           this.http.post('http://create-performance.herokuapp.com/authenticate', {session:val}).subscribe(response => {
             var resBody = JSON.parse(response["_body"]);
-            if (!resBody.err && compJoined && compVerified){
+            if (!resBody.err && resBody.obj.companyID && resBody.obj.verified){
               console.log("User Logged In, switching to Home Page");
 
               this.storage.set('username', resBody.username);
@@ -53,7 +53,7 @@ export class MyApp {
 
               this.rootPage = HomePage; 
 
-            } else if (!resBody.err && compJoined) {
+            } else if (!resBody.err && resBody.obj.companyID) {
               this.rootPage = VerificationPage;
             } else if (!resBody.err){
               this.rootPage = JoinCompanyPage;
