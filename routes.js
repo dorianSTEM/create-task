@@ -90,6 +90,8 @@ router.post('/createCompany', function(req, res, next){
       compModel.createCompany(req.body.name, req.body.descr).then(function(obj){
         if (obj.success){
           console.log("looking for session");
+          console.log("The company doc is: ", obj.doc);
+
           userModel.getUserBySession(req.body.session).then(function(usrObj){
             if (usrObj.found){
               console.log("session found");
