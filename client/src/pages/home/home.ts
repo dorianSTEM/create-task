@@ -20,6 +20,7 @@ export class HomePage {
   eventTemplate = [];
 
   constructor(public navCtrl: NavController, public storage: Storage, private socket: Socket, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+    var sock = this.socket;
     this.storage.get('username').then((val) => {
       this.username = val;
     });
@@ -66,7 +67,7 @@ export class HomePage {
       for (var doc in info.docs){
         var confirmResult = confirm(info.docs[doc].username + " wants to join the company. Is this OK?");
         if (confirmResult){
-          this.socket.emit('accept', {username:info.docs[doc].username});
+          sock.emit('accept', {username:info.docs[doc].username});
         } 
       }
     });
