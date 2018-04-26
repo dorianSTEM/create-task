@@ -12,6 +12,9 @@ import { LoginChoicePage } from '../pages/login-choice/login-choice';
 import { CompanyCreatePage } from '../pages/company-create/company-create';
 import { LoadingPage } from '../pages/loading/loading';
 
+import { JoinCompanyPage } from '../pages/join-company/join-company';
+import { VerificationPage } from '../pages/company-verification/company-verification';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -31,18 +34,29 @@ export class MyApp {
         //{ title: 'List', component: ListPage }
       ];
       
-      this.storage.get('session-id').then((val) => {
+      //this.storage.get('session-id').then((val) => {
+      Promise.all([this.storage.get("session-id"), this.storage.get("company-joined"), this.storage.get("company-verified")]).then(values => {
+        var val = values[0];
+        
+        var compJoined = values[1];
+        var compVerified = values[2];
+
         console.log('We have session ', val);
         if (val){
           this.http.post('http://create-performance.herokuapp.com/authenticate', {session:val}).subscribe(response => {
             var resBody = JSON.parse(response["_body"]);
-            if (!resBody.err){
+            if (!resBody.err && compJoined && compVerified){
               console.log("User Logged In, switching to Home Page");
 
               this.storage.set('username', resBody.username);
               this.storage.set('company', resBody.company);
 
               this.rootPage = HomePage; 
+
+            } else if (!resBody.err && compJoined) {
+              this.rootPage = VerificationPage;
+            } else if (!resBody.err){
+              this.rootPage = JoinCompanyPage;
             } else {
               // this.rootPage = LoginPage;
               this.rootPage = LoginChoicePage;
