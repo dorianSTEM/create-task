@@ -60,6 +60,8 @@ export class JoinCompanyPage {
           duration: 2000
         });
 
+        this.storage.set("company-joined", true);
+
         loading.dismiss();
         toast.present();
         this.navCtrl.setRoot(VerificationPage);
