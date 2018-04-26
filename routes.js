@@ -97,7 +97,7 @@ router.post('/createCompany', function(req, res, next){
               console.log("session found");
               userModel.joinCompany(usrObj.doc.username, obj.doc._id).then(function(){
                 userModel.approveUser(usrObj.doc.username).then(function(){
-                  res.json({err:0});
+                  res.json({err:0, username:usrObj.doc.username});
                 });
               });
             } else {
@@ -159,7 +159,7 @@ router.post('/authenticate', function(req, res, next){ // authenticate with user
 
       compModel.findCompanyByObjID(obj.doc.companyID).then(function(compObj){
         if (compObj.found){
-          res.json({err:0, username:obj.doc.username, company:compObj.doc.name, obj:obj});
+          res.json({err:0, username:obj.doc.username, company:compObj.doc.name, obj:obj.doc});
         } else {
           res.json({err:1}); 
         }
