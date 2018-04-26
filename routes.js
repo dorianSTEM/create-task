@@ -139,7 +139,7 @@ router.post('/authenticate', function(req, res, next){ // authenticate with user
 
       compModel.findCompanyByObjID(obj.doc.companyID).then(function(compObj){
         if (compObj.found){
-          res.json({err:0, username:obj.doc.username, company:compObj.doc.name});
+          res.json({err:0, username:obj.doc.username, company:compObj.doc.name, obj:obj});
         } else {
           res.json({err:1}); 
         }
