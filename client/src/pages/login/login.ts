@@ -49,8 +49,8 @@ export class LoginPage {
         toastMsg = "Successfully Logged In!";
         this.storage.set("session-id", resBody.session);
 
-        this.storage.set("company-joined", false);
-        this.storage.set("company-verified", false);
+        this.storage.set("company-joined", true);
+        this.storage.set("company-verified", true);
 
         this.http.post('http://create-performance.herokuapp.com/authenticate', {session:resBody.session}).subscribe(response => {
           var resBody = JSON.parse(response["_body"]);
