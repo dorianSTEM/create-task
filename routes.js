@@ -81,18 +81,22 @@ router.post('/signup', function(req, res, next) {
 });
 
 router.post('/createCompany', function(req, res, next){
+  console.log("Creating Company");
   compModel.findCompanyByName(req.body.name).then(function(obj){
     if (!obj.found){
       compModel.createCompany(req.body.name, req.body.descr).then(function(obj){
         if (obj.success){
-          userModel.getUserBySession(req.session).then(function(usrObj){
+          console.log("looking for session");
+          userModel.getUserBySession(req.body.session).then(function(usrObj){
             if (obj.found){
+              console.log("session found");
               userModel.joinCompany(usrObj.doc.username, obj.doc._id).then(function(){
                 userModel.approveUser(usrObj.doc.username).then(function(){
                   res.json({err:0});
                 });
               });
             } else {
+              console.log("Session not found");
               res.json({err:1});
             }
             
