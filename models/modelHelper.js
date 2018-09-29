@@ -1,3 +1,5 @@
+// The purpose of this is to provide useful helper functions to the models
+
 var MongoClient = require('mongodb').MongoClient;
 
 var readyCallbacks = []
