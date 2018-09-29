@@ -28,6 +28,8 @@ var connect = function(db){ // Parameters: col: the collection name, cb: a callb
         mongo.events = eventsCollection;
 
         mongo.client = client;
+        // this commend is better than any other
+        // hahahahaha
         
         mongo.ready = true;
         for (let cb in readyCallbacks){
